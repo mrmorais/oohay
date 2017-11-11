@@ -1,5 +1,7 @@
 package br.ufrn.imd.calculaarvore;
 
+import java.io.File;
+
 /**
  * Representa um arquivo do sistema de arquivos
  * 
@@ -8,12 +10,12 @@ package br.ufrn.imd.calculaarvore;
  */
 public class Arquivo {
 	private String nome;
-	private String endereco;
+	private File file;
 	
 	public Arquivo(String nome, String endereco) {
 		super();
 		this.nome = nome;
-		this.endereco = endereco;
+		this.file = new File(endereco);
 	}
 
 	public String getNome() {
@@ -23,13 +25,12 @@ public class Arquivo {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	
+	public File getFile() {
+		return file;
 	}
 	
+	public void setFile(File file) {
+		this.file = file;
+	}
 }

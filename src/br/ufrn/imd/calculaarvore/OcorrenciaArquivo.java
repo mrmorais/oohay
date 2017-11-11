@@ -6,11 +6,11 @@ public class OcorrenciaArquivo {
 	protected int linha;
 	protected int nRepeticoes;
 	
-	public OcorrenciaArquivo(Arquivo a, int l, int nR) 
+	public OcorrenciaArquivo(Arquivo arquivo, int linha, int numRepeticoes) 
 	{
-		this.arquivo = a;
-		this.linha = l;
-		this.nRepeticoes = nR;
+		this.arquivo = arquivo;
+		this.linha = linha;
+		this.nRepeticoes = numRepeticoes;
 		
 	}
 

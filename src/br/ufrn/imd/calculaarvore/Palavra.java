@@ -1,15 +1,16 @@
 package br.ufrn.imd.calculaarvore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Palavra {
 
 	protected String valor;
-	protected ArrayList<OcorrenciaArquivo> ocorrencias;
+	protected List<OcorrenciaArquivo> ocorrencias;
 	
-	public Palavra( String v) 
+	public Palavra(String valor) 
 	{
-		this.valor = v;
+		this.valor = valor;
 		ocorrencias = new ArrayList<OcorrenciaArquivo>();
 	}
 
@@ -33,5 +34,9 @@ public class Palavra {
 	public void addOcorrencia(OcorrenciaArquivo ocorrencia)
 	{
 		ocorrencias.add(ocorrencia);
+	}
+	
+	public List<OcorrenciaArquivo> getOcorrencias() {
+		return this.ocorrencias;
 	}
 }
