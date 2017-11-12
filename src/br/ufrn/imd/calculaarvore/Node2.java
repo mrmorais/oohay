@@ -32,7 +32,7 @@ public class Node2
 		String nextStr = palavra.getValor() + proxLetra;
 		Node2 newFilho = new Node2();
 		newFilho.getPalavra().setValor(nextStr);
-		filhos.add(newFilho);
+		filhos.add(new Node2());
 		return newFilho;
 	}
 	

@@ -15,6 +15,7 @@ public class TestArvoreTrie {
 		try {
 			arvoreTrie.insert(new Palavra("ola"));
 			arvoreTrie.insert(new Palavra("olinda"));
+			arvoreTrie.insert(new Palavra("amor"));
 		} catch (Exception e) {
 			fail();
 		}
