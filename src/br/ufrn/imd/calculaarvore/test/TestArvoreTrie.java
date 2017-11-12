@@ -39,4 +39,5 @@ public class TestArvoreTrie {
 			fail();
 		}
 	}
+	
 }
