@@ -11,11 +11,13 @@ import java.io.File;
 public class Arquivo {
 	private String nome;
 	private File file;
+	private int numeroPalavras;
 	
 	public Arquivo(String nome, String endereco) {
 		super();
 		this.nome = nome;
 		this.file = new File(endereco);
+		this.numeroPalavras = 0;
 	}
 
 	public String getNome() {
@@ -32,5 +34,15 @@ public class Arquivo {
 	
 	public void setFile(File file) {
 		this.file = file;
+	}
+	
+	public int getNumeroPalavras()
+	{
+		return numeroPalavras;
+	}
+	
+	public void setNumeroPalavras(int numeroPalavras)
+	{
+		this.numeroPalavras = numeroPalavras;
 	}
 }
