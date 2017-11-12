@@ -30,7 +30,7 @@ public class TestArvoreTrie {
 			arvoreTrie.insert(new Palavra("olinda"));
 			arvoreTrie.insert(new Palavra("amor"));
 			
-			Node busca = arvoreTrie.findWord("ola");
+			Node busca = arvoreTrie.findWord("olin");
 			if (busca == null) {
 				fail();
 			}

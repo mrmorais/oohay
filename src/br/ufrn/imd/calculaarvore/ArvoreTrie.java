@@ -71,8 +71,10 @@ public class ArvoreTrie {
 	private Node findWord(Node node, String palavra, int level) 
 	{ 
 		if (palavra.isEmpty()) return null;
-		if (palavra.length() == level) return node;
-		
+		if (palavra.length() == level)
+		{
+			return node;
+		}
 		char currentChar = palavra.charAt(level);
 		
 		Node nodeFound = node.buscaFilho(currentChar);
