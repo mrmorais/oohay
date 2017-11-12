@@ -13,6 +13,7 @@ public class Principal {
 	public Principal() 
 	{
 		arvore = new ArvoreTrie();
+		arquivos = new ArrayList<Arquivo>();
 	}
 	
 	/**
@@ -80,9 +81,9 @@ public class Principal {
 		
 		Node nodeAchado;
 		
-		nodeAchado = arvore.findWord(paraBusca);
+		nodeAchado = arvore.findWord(palavraBuscada);
 		
-		return nodeAchado.key;
+		return nodeAchado.getPalavra();
 	}
 	
 	/**

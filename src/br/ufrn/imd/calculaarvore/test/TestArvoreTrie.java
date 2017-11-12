@@ -10,7 +10,7 @@ public class TestArvoreTrie {
 
 	@Test
 	public void testInserirPalavra() {
-		ArvoreTrie2 arvoreTrie = new ArvoreTrie2();
+		ArvoreTrie arvoreTrie = new ArvoreTrie();
 		
 		try {
 			arvoreTrie.insert(new Palavra("ola"));
@@ -23,14 +23,14 @@ public class TestArvoreTrie {
 
 	@Test
 	public void testBuscaPalavra() {
-		ArvoreTrie2 arvoreTrie = new ArvoreTrie2();
+		ArvoreTrie arvoreTrie = new ArvoreTrie();
 		
 		try {
 			arvoreTrie.insert(new Palavra("ola"));
 			arvoreTrie.insert(new Palavra("olinda"));
 			arvoreTrie.insert(new Palavra("amor"));
 			
-			Node2 busca = arvoreTrie.findWord("ola");
+			Node busca = arvoreTrie.findWord("ola");
 			if (busca == null) {
 				fail();
 			}
