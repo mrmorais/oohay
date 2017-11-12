@@ -36,6 +36,22 @@ public class Palavra {
 		ocorrencias.add(ocorrencia);
 	}
 	
+	public void mesclarOcorrencias(Palavra origem) {
+		for (OcorrenciaArquivo ocorrencia_destino : ocorrencias) {
+			for (OcorrenciaArquivo ocorrencia_origem : origem.getOcorrencias()) {
+				if (ocorrencia_destino.getArquivo().getNome().equals(ocorrencia_origem.getArquivo().getNome())) {
+					if (ocorrencia_destino.getLinha() == ocorrencia_origem.getLinha()) {
+						// Match em mesmo arquivo e mesma linha
+						ocorrencia_destino.setnRepeticoes(ocorrencia_destino.getnRepeticoes() + ocorrencia_origem.getnRepeticoes());
+					}
+				} else {
+					// Sem match em mesmo arquivos
+					ocorrencias.add(ocorrencia_origem);
+				}
+			}
+		}
+	}
+	
 	public List<OcorrenciaArquivo> getOcorrencias() {
 		return this.ocorrencias;
 	}
