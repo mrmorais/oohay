@@ -28,7 +28,6 @@ public class Principal {
 	public void inserirArquivo(String nome, String endNovoArq) throws FileNotFoundException, IOException
 	{
 		Arquivo novoArquivo = new Arquivo(nome, endNovoArq);
-		
 		inserirArquivo(novoArquivo);
 	}
 		
@@ -105,12 +104,13 @@ public class Principal {
 			{
 				arvore.insert(p);
 			}
+			
+			arquivos.add(arquivo);
 		}
 		catch(Exception e)
 		{
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage() + "Erro em inserirArquivo 02");
 		}
 		
-		arquivos.add(arquivo);
 	}
 }

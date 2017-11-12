@@ -35,7 +35,7 @@ public class Palavra {
 	{
 		ocorrencias.add(ocorrencia);
 	}
-	
+	/*
 	public void mesclarOcorrencias(Palavra origem) {
 		for (OcorrenciaArquivo ocorrencia_origem : origem.getOcorrencias()) {
 			boolean newOne = true;
@@ -50,6 +50,28 @@ public class Palavra {
 			
 			if (newOne) ocorrencias.add(ocorrencia_origem);
 		}
+	}
+	*/
+	public void mesclarOcorrencias(Palavra origem) 
+	{	
+		//Novas palavras inseridas sempre tem apenas 1 ocorrencia na sua lista de ocorrencia, 
+		//devido ao indexador, que é o único que cria uma lista de palavras para serem inseridas, e elas sempre possuem apenas 1 ocorrencia.
+		OcorrenciaArquivo novaOcorrencia = origem.getOcorrencias().get(0);
+		
+		for (OcorrenciaArquivo ocorrencia_destino : ocorrencias) 
+		{
+			if (ocorrencia_destino.getArquivo().getNome().equals(novaOcorrencia.getArquivo().getNome())) 
+			{
+				if (ocorrencia_destino.getLinha() == novaOcorrencia.getLinha()) 
+				{
+					ocorrencia_destino.setnRepeticoes(ocorrencia_destino.getnRepeticoes() + 1);
+					return;
+				}
+			}
+		}
+		
+		// Se a ocorrencia não veio do mesmo arquivo e mesma linha, será uma nova à lista daquela palavra
+		ocorrencias.add(novaOcorrencia);
 	}
 	
 	public List<OcorrenciaArquivo> getOcorrencias() {

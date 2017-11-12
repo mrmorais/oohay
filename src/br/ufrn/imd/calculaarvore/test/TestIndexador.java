@@ -13,7 +13,7 @@ public class TestIndexador {
 
 	@Test
 	public void testIndexarArquivo() {
-		Arquivo arquivo = new Arquivo("apple.txt", "/home/mrmorais/calcula-arvore/data/apple.txt");
+		Arquivo arquivo = new Arquivo("apple.txt", "/home/danielmarx/Documentos/TI/Pasta sem título/calcula-arvore/data/apple.txt");
 		try {
 			List<Palavra> palavras = Indexador.lerArquivo(arquivo);
 			if (!palavras.get(0).getValor().equals("apple")) {

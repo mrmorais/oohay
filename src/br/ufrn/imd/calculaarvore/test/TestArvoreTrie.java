@@ -17,6 +17,7 @@ public class TestArvoreTrie {
 			arvoreTrie.insert(new Palavra("olinda"));
 			arvoreTrie.insert(new Palavra("amor"));
 		} catch (Exception e) {
+			e.printStackTrace();
 			fail();
 		}
 	}
@@ -40,5 +41,4 @@ public class TestArvoreTrie {
 			fail();
 		}
 	}
-	
 }

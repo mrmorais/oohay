@@ -15,20 +15,20 @@ public class TestPrincipal {
 		Principal princ = new Principal();
 		
 		try {
-			princ.inserirArquivo("lula.txt", "/home/mrmorais/calcula-arvore/data/lula.txt");
+			princ.inserirArquivo("lula.txt", "/home/danielmarx/Documentos/TI/Pasta sem título/calcula-arvore/data/lula.txt");
 			Palavra tirei = princ.buscarPalavra("bilhões");
 			System.out.println(tirei.getValor());
 		} catch(Exception e) {
 			fail();
 		}
 	}
-	
+
 	@Test
 	public void testPalavrasRepetidas() {
 		Principal princ = new Principal();
 		
 		try {
-			princ.inserirArquivo("google.txt", "/home/mrmorais/calcula-arvore/data/google.txt");
+			princ.inserirArquivo("google.txt", "/home/danielmarx/Documentos/TI/Pasta sem título/calcula-arvore/data/google.txt");
 			Palavra uma = princ.buscarPalavra("uma");
 			System.out.println(uma.getOcorrencias().size());
 			if (uma.getOcorrencias().size() < 2) {
@@ -38,5 +38,6 @@ public class TestPrincipal {
 			fail();
 		}
 	}
+
 
 }

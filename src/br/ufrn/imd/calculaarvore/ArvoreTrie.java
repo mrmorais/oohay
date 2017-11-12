@@ -42,15 +42,22 @@ public class ArvoreTrie {
 		if (nodeFound == null) {
 			Node newFilho = node.criaFilho(currentChar);
 			if (palavra.getValor().length() - 1 == level) {
-				newFilho.getPalavra().mesclarOcorrencias(palavra);
+				//Palavra do novo nó será a que queremos adicionar, com isso já teremos as ocorrências O.k.
+				newFilho.setPalavra(palavra);
 				return newFilho; // Palavra encontrada
 			}
 			return insert(newFilho, palavra, level+1);
 		}
+		else
+		{
+			if (palavra.getValor().length() - 1 == level) {
+				nodeFound.getPalavra().mesclarOcorrencias(palavra);
+				return nodeFound;
+			}
+		}
 		return insert(nodeFound, palavra, level+1);
 	}
-	
-	
+		
 	/**
 	 * Busca uma dada palavra na árvore
 	 * @param word

@@ -36,6 +36,11 @@ public class Node
 		return newFilho;
 	}
 	
+	public void setPalavra(Palavra palavra)
+	{
+		this.palavra = palavra;
+	}
+	
 	public Palavra getPalavra() {
 		return palavra;
 	}
