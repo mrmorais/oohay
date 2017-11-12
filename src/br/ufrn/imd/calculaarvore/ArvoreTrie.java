@@ -24,7 +24,7 @@ public class ArvoreTrie {
 	 */
 	public void insert(Palavra newWord)
 	{
-		raiz = insert(raiz, newWord, 0);
+		insert(raiz, newWord, 0);
 	}
 	
 	/**
@@ -35,34 +35,30 @@ public class ArvoreTrie {
 	 * @param d auxilia na indentificação do nível ao qual a palavra será inserida
 	 * @return novo nó inserido
 	 */
-	private Node insert(Node newNode, Palavra newWord, int d)
-	{
-		if(newNode == null)
-			newNode = new Node();
+	private Node insert(Node node, Palavra palavra, int level) {
+		char currentChar = palavra.getValor().charAt(level);
 		
-		if(d == newWord.valor.length())
-		{
-			newNode.key = newWord;
-			return newNode;
+		Node nodeFound = node.buscaFilho(currentChar);
+		if (nodeFound == null) {
+			Node newFilho = node.criaFilho(currentChar);
+			if (palavra.getValor().length() - 1 == level) {
+				newFilho.getPalavra().mesclarOcorrencias(palavra);
+				return newFilho; // Palavra encontrada
+			}
+			return insert(newFilho, palavra, level+1);
 		}
-		
-		char c = newWord.valor.charAt(d);
-		
-		newNode.next[c] = insert(newNode.next[c], newWord, d+1);
-		return newNode;		
+		return insert(nodeFound, palavra, level+1);
 	}
+	
 	
 	/**
 	 * Busca uma dada palavra na árvore
 	 * @param word
 	 * @return nó em que se encontra a palavra
 	 */
-	public Node findWord(Palavra word) 
+	public Node findWord(String palavra) 
 	{
-		Node toFind = findWord(raiz, word, 0);
-	    if (toFind == null) 
-	    	return null;
-	    return toFind;
+		return findWord(raiz, palavra, 0);
 	}
 
 	/**
@@ -72,16 +68,16 @@ public class ArvoreTrie {
 	 * @param d auxilia para encontrar o nível em que se encontra a palavra buscada
 	 * @return nó da palavra buscada
 	 */
-	private Node findWord(Node node, Palavra word, int d) 
+	private Node findWord(Node node, String palavra, int level) 
 	{ 
-		if (node == null) 
-			return null;
-		if (d == word.valor.length()) 
-			return node;
+		if (palavra.isEmpty()) return null;
+		if (palavra.length() == level) return node;
 		
-		char c = word.valor.charAt(d);
-	
-		return findWord(node.next[c], word, d+1);
+		char currentChar = palavra.charAt(level);
+		
+		Node nodeFound = node.buscaFilho(currentChar);
+		if (nodeFound == null) return null;
+		return findWord(nodeFound, palavra, level + 1);
 	}
 	
 	/**
