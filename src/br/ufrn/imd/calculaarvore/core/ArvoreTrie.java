@@ -88,6 +88,49 @@ public class ArvoreTrie {
 	}
 	
 	/**
+	 * Padrão de busca OR. Recebe uma lista de Strings e retorna uma lista de instâncias de Palavra se ao menos 
+	 * uma das Strings na lista tiver ocorrência nas palavras da árvore.
+	 * @param listaOr lista contendo strings a serem buscadas na árvore
+	 * @return lista de Palavras, se ao menos uma da busca tiver sido encontrada, caso contrário retorna null.
+	 */
+	public ArrayList<Palavra> buscaOR(ArrayList<String> listaOr)
+	{
+		ArrayList<Palavra> listaRetorno = new ArrayList<Palavra>();
+		
+		for(String p : listaOr)
+		{
+			Palavra novaPalavra = findWord(p).getPalavra();
+			if(novaPalavra != null)
+				if(novaPalavra.getOcorrencias().size() != 0)
+					listaRetorno.add(novaPalavra);
+		}
+		
+		return listaRetorno;
+	}
+	
+	/**
+	 * Padrão de busca AND. Recebe uma lista de Strings e retorna uma lista de instâncias de Palabra se todas
+	 * as Strings na lista tiverem ocorrência nas palavras da árvore.
+	 * @param listaAND lista contendo Strings que se deseja encontrar a ocorrência
+	 * @return lista de Palavras, se todas as Strings tiverem sido encontradas, caso contrário retorna null.
+	 */
+	public ArrayList<Palavra> buscaAND(ArrayList<String> listaAND)
+	{
+		ArrayList<Palavra> listaRetorno = new ArrayList<Palavra>();
+		
+		for(String p : listaAND)
+		{
+			Palavra novaPalavra = findWord(p).getPalavra();
+			if(novaPalavra != null)
+				if(novaPalavra.getOcorrencias().size() == 0)
+					return null;
+			else
+				listaRetorno.add(novaPalavra);
+		}
+		
+		return listaRetorno;
+	}	
+	/**
 	 * Deleta uma palavra passada, se ela existir na árvore
 	 * @param k palavra a ser deletada
 	 */
