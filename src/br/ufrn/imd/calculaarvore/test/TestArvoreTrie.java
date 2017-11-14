@@ -1,11 +1,11 @@
 package br.ufrn.imd.calculaarvore.test;
 
-import br.ufrn.imd.calculaarvore.*;
-
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.junit.Assert.*;
+
+import br.ufrn.imd.calculaarvore.core.*;
 
 public class TestArvoreTrie {
 

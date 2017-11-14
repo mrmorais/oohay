@@ -1,4 +1,4 @@
-package br.ufrn.imd.calculaarvore;
+package br.ufrn.imd.calculaarvore.core;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

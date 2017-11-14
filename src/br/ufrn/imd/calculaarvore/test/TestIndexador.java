@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.Assert.*;
 
-import br.ufrn.imd.calculaarvore.*;
+import br.ufrn.imd.calculaarvore.core.*;
 
 public class TestIndexador {
 	private final String path = "/home/mrmorais/eclipse-workspace/calcula-arvore";

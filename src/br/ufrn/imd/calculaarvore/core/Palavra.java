@@ -1,4 +1,4 @@
-package br.ufrn.imd.calculaarvore;
+package br.ufrn.imd.calculaarvore.core;
 
 import java.util.ArrayList;
 import java.util.List;

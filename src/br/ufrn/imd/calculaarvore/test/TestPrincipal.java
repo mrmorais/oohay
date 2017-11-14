@@ -1,12 +1,10 @@
 package br.ufrn.imd.calculaarvore.test;
 
-import br.ufrn.imd.calculaarvore.*;
-
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import br.ufrn.imd.calculaarvore.CalculaArvore;
+import br.ufrn.imd.calculaarvore.core.*;
 
 public class TestPrincipal {
 	private final String path = "/home/mrmorais/eclipse-workspace/calcula-arvore";
