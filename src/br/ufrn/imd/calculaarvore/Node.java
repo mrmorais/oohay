@@ -44,4 +44,9 @@ public class Node
 	public Palavra getPalavra() {
 		return palavra;
 	}
+	
+	public List<Node> getFilhos()
+	{
+		return filhos;
+	}
 }

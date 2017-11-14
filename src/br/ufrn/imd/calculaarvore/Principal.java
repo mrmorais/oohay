@@ -17,20 +17,36 @@ public class Principal {
 	}
 	
 	/**
-	 * Adiciona um novo arquivo à lista de arquivos passando um endereço.
+	 * Adiciona um novo arquivo à lista de arquivos
 	 * Todas as palavras do arquivo serão adicionadas à árvore trie.
 	 * Inserir principal, faz interface com o usuário
-	 * @param nome Nome do arquivo
-	 * @param endNovoArq endereço do novo arquivo
+	 * @param arquivo Objeto arquivo que será inserido
 	 * @throws IOException 
 	 * @throws FileNotFoundException 
 	 */
-	public void inserirArquivo(String nome, String endNovoArq) throws FileNotFoundException, IOException
+	public void inserirArquivo(Arquivo arquivo) throws FileNotFoundException, IOException
 	{
-		Arquivo novoArquivo = new Arquivo(nome, endNovoArq);
-		inserirArquivo(novoArquivo);
-	}
+		List<Palavra> palavrasNoArquivo;
 		
+		try 
+		{
+			palavrasNoArquivo = Indexador.lerArquivo(arquivo);
+			arquivo.setNumeroPalavras(palavrasNoArquivo.size());
+			
+			for(Palavra p : palavrasNoArquivo)
+			{
+				arvore.insert(p);
+			}
+			
+			arquivos.add(arquivo);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
 	/**
 	 * Remove o arquivo da lista de arquivos, bem como todas as suas palavras da árvore
 	 * @param arquivo arquivo a ser excluído
@@ -75,9 +91,7 @@ public class Principal {
 	 * @return um objeto Palavra
 	 */
 	public Palavra buscarPalavra(String palavraBuscada)
-	{
-		Palavra paraBusca = new Palavra(palavraBuscada);
-		
+	{	
 		Node nodeAchado;
 		
 		nodeAchado = arvore.findWord(palavraBuscada);
@@ -85,32 +99,4 @@ public class Principal {
 		return nodeAchado.getPalavra();
 	}
 	
-	/**
-	 * Função auxiliar para inserir arquivos
-	 * @param arquivo
-	 * @throws FileNotFoundException
-	 * @throws IOException
-	 */
-	private void inserirArquivo(Arquivo arquivo) throws FileNotFoundException, IOException
-	{
-		List<Palavra> palavrasNoArquivo;
-		
-		try 
-		{
-			palavrasNoArquivo = Indexador.lerArquivo(arquivo);
-			arquivo.setNumeroPalavras(palavrasNoArquivo.size());
-			
-			for(Palavra p : palavrasNoArquivo)
-			{
-				arvore.insert(p);
-			}
-			
-			arquivos.add(arquivo);
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage() + "Erro em inserirArquivo 02");
-		}
-		
-	}
 }

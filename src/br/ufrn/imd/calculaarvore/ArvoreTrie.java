@@ -107,24 +107,25 @@ public class ArvoreTrie {
 	 * @return nó parente do que foi deletado e que ainda possui filhos com alguma palavra. 
 	 * Ou a própria raiz, caso a árvore fique vazia. 
 	 */
-	private Node delete(Node node, Palavra k, int d) {
-	     if (node == null) 
+	private Node delete(Node node, Palavra palavra, int level) {
+	     if (node == null) {
 	    	 return null;
-	     
-	     if (d == k.valor.length())
-	         node.key = null;
-	     else 
-	     {
-	        char c = k.valor.charAt(d);
-	        node.next[c] = delete(node.next[c], k, d+1);
 	     }
 	     
-	     if (node.key != null) 
-	    	 return node;
-	     
-	     for (char c = 0; c < 26; c++)
-	    	 if (node.next[c] != null) 
-	    		 return node;
+	     if (level == palavra.getValor().length())
+	     {	
+	    	node.getPalavra().excluirOcorrencia(palavra);
+	     }
+	     else 
+	     {
+	    	char currentChar = palavra.getValor().charAt(level);
+	    	Node nodeFound = node.buscaFilho(currentChar);
+	    
+	        nodeFound = delete(nodeFound, palavra, level+1);
+	     }
+	     	     
+	     if(!node.getFilhos().isEmpty())
+	    	return node;
 	     
 	     return null;
 	}	
@@ -134,21 +135,21 @@ public class ArvoreTrie {
 	 * Faz uso do método auxiliar collect
 	 * @param pre prefixo sendo buscado. Palavra com esse prefixo pode não estar na árvore
 	 * @return Lista de palavras com prefixo procurado
-	 */
+	 *//*
 	public ArrayList<Palavra> keysWithPrefix(Palavra pre) 
 	{
 	   ArrayList<Palavra> palavrasComOPrefixo = new ArrayList<Palavra>();
 	   collect(findWord(raiz, pre, 0), pre, palavrasComOPrefixo);
 	   return palavrasComOPrefixo;
 	}
-	
+	*/
 	/**
 	 * Método auxiliar para achar as palavras com certo prefixo. 
 	 * Preenche uma lista com as palavras encontradas na árvore que tiverem o prefixo buscado
 	 * @param node nó por onde iniciará a busca por palavras
 	 * @param pre palavra que pode vir a ser adicionada à lista de prefixos
 	 * @param palavrasComOPrefixo lista de palavras
-	 */
+	 *//*
 	private void collect(Node node, Palavra pre, ArrayList<Palavra> palavrasComOPrefixo) 
 	{
 	   if (node == null) 
@@ -160,5 +161,5 @@ public class ArvoreTrie {
 	   {
 	      collect(node.next[c], node.next[c].key, palavrasComOPrefixo);
 	   }
-	}
+	}*/
 }

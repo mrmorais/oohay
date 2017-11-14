@@ -74,6 +74,27 @@ public class Palavra {
 		ocorrencias.add(novaOcorrencia);
 	}
 	
+	public void excluirOcorrencia(Palavra origem)
+	{
+		OcorrenciaArquivo  paraDelecao = origem.getOcorrencias().get(0);
+		
+		for (OcorrenciaArquivo ocorrencia_destino : ocorrencias) 
+		{
+			if (ocorrencia_destino.getArquivo().getNome().equals(paraDelecao.getArquivo().getNome())) 
+			{
+				if (ocorrencia_destino.getLinha() == paraDelecao.getLinha()) 
+				{
+					if(ocorrencia_destino.getnRepeticoes() > 1)
+						ocorrencia_destino.setnRepeticoes(ocorrencia_destino.getnRepeticoes() - 1);
+					else
+						ocorrencias.remove(ocorrencia_destino);
+					return;
+				}
+			}
+		}
+		
+	}
+	
 	public List<OcorrenciaArquivo> getOcorrencias() {
 		return this.ocorrencias;
 	}
