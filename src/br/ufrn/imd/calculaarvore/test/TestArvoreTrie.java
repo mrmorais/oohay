@@ -5,6 +5,7 @@ import br.ufrn.imd.calculaarvore.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.junit.Assert.*;
 
 public class TestArvoreTrie {
 
@@ -32,9 +33,9 @@ public class TestArvoreTrie {
 			arvoreTrie.insert(new Palavra("amor"));
 			
 			Node busca = arvoreTrie.findWord("olin");
-			if (busca == null) {
-				fail();
-			}
+			
+			assertNotEquals(busca, null);
+			
 			System.out.println(busca.getPalavra().getValor());
 		} catch (Exception e) {
 			e.printStackTrace();

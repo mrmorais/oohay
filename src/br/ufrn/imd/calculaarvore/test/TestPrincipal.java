@@ -18,8 +18,9 @@ public class TestPrincipal {
 		try {
 			Arquivo lula = new Arquivo(path + "/data/lula.txt");
 			princ.inserirArquivo(lula);
-			Palavra tirei = princ.buscarPalavra("bilhões");
-			System.out.println(tirei.getValor());
+			Palavra bilhoes = princ.buscarPalavra("bilhões");
+			
+			assertEquals(bilhoes.getValor(), "bilhões");
 		} catch(Exception e) {
 			fail();
 		}
@@ -39,9 +40,7 @@ public class TestPrincipal {
 			{
 				System.out.println(a.getnRepeticoes());
 			}
-			if (uma.getOcorrencias().size() < 1) {
-				fail();
-			}
+			assertTrue(uma.getOcorrencias().size() > 1);
 			
 		} catch(Exception e) {
 			fail();
@@ -62,9 +61,9 @@ public class TestPrincipal {
 			
 			Palavra uma = princ.buscarPalavra("uma");
 			System.out.println("Número de ocorrências sem deleção: " + uma.getOcorrencias().size());
-			if (uma.getOcorrencias().size() < 2) {
-				fail();
-			}
+			
+			assertTrue(uma.getOcorrencias().size() >= 2);
+			
 			princ.removerArquivo(google);
 			uma = princ.buscarPalavra("uma");
 			System.out.println("Número de ocorrências após a : " + uma.getOcorrencias().size());
