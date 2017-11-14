@@ -133,31 +133,30 @@ public class ArvoreTrie {
 	 * Faz uso do método auxiliar collect
 	 * @param pre prefixo sendo buscado. Palavra com esse prefixo pode não estar na árvore
 	 * @return Lista de palavras com prefixo procurado
-	 *//*
-	public ArrayList<Palavra> keysWithPrefix(Palavra pre) 
+	 */
+	public ArrayList<Palavra> keysWithPrefix(String pre) 
 	{
 	   ArrayList<Palavra> palavrasComOPrefixo = new ArrayList<Palavra>();
-	   collect(findWord(raiz, pre, 0), pre, palavrasComOPrefixo);
+	   collect(findWord(raiz, pre, 0), palavrasComOPrefixo);
 	   return palavrasComOPrefixo;
 	}
-	*/
+	
 	/**
 	 * Método auxiliar para achar as palavras com certo prefixo. 
 	 * Preenche uma lista com as palavras encontradas na árvore que tiverem o prefixo buscado
 	 * @param node nó por onde iniciará a busca por palavras
 	 * @param pre palavra que pode vir a ser adicionada à lista de prefixos
 	 * @param palavrasComOPrefixo lista de palavras
-	 *//*
-	private void collect(Node node, Palavra pre, ArrayList<Palavra> palavrasComOPrefixo) 
+	 */
+	private void collect(Node node, ArrayList<Palavra> palavrasComOPrefixo) 
 	{
 	   if (node == null) 
 		   return;
-	   if (node.key.valor != null) 
-		   palavrasComOPrefixo.add(pre);
-		   
-	   for (char c = 0; c < 26; c++)
-	   {
-	      collect(node.next[c], node.next[c].key, palavrasComOPrefixo);
-	   }
-	}*/
+	   if (node.getPalavra().getOcorrencias().size() != 0) 
+		   palavrasComOPrefixo.add(node.getPalavra());
+		
+	   for (Node filho : node.getFilhos()) {
+		   collect(filho, palavrasComOPrefixo);
+		}  
+	}
 }

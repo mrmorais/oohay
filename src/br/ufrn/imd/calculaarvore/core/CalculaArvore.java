@@ -44,7 +44,6 @@ public class CalculaArvore {
 		{
 			System.out.println(e.getMessage());
 		}
-		
 	}
 	
 	/**
@@ -97,6 +96,16 @@ public class CalculaArvore {
 		nodeAchado = arvore.findWord(palavraBuscada);
 		
 		return nodeAchado.getPalavra();
+	}
+	
+	/**
+	 * Retorna uma lista de palavras que contêm o prefixo passado
+	 * @param prefixoBuscado prefixo que deve estar nas palavras da lista retornada
+	 * @return Lista com palavras cujo valor contêm o prefixo especificado
+	 */
+	public ArrayList<Palavra> buscaPrefixo(String prefixoBuscado)
+	{	
+		return arvore.keysWithPrefix(prefixoBuscado);
 	}
 	
 }
