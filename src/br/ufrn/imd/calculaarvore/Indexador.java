@@ -27,35 +27,29 @@ public class Indexador {
 	public static List<Palavra> lerArquivo(Arquivo arquivo) throws FileNotFoundException, IOException {
 		List<Palavra> words = new ArrayList<Palavra>(); // lista para resposta
 		
-		try
-		{
-			// cria um buffered reader para poder ler o arquivo por linha
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivo.getFile()));
+		// cria um buffered reader para poder ler o arquivo por linha
+		BufferedReader bufferedReader = new BufferedReader(new FileReader(arquivo.getFile()));
+		
+		String lineStr;
+		int lineNum = 1;
+		while ((lineStr = bufferedReader.readLine()) != null) {
+			StringTokenizer stringTokenizer = new StringTokenizer(lineStr);
 			
-			String lineStr;
-			int lineNum = 1;
-			while ((lineStr = bufferedReader.readLine()) != null) {
-				StringTokenizer stringTokenizer = new StringTokenizer(lineStr);
-				
-				// enquanto houver palavras na linha
-				while(stringTokenizer.hasMoreTokens()) {
-					String currentWord = stringTokenizer.nextToken().toLowerCase();
-					String cleanCurrentWord = limpaPalavra(currentWord);
-					if (cleanCurrentWord != null) {
-						Palavra word = new Palavra(cleanCurrentWord);
-						word.addOcorrencia(new OcorrenciaArquivo(arquivo, lineNum, 1));
-						
-						words.add(word);
-					}
+			// enquanto houver palavras na linha
+			while(stringTokenizer.hasMoreTokens()) {
+				String currentWord = stringTokenizer.nextToken().toLowerCase();
+				String cleanCurrentWord = limpaPalavra(currentWord);
+				if (cleanCurrentWord != null) {
+					Palavra word = new Palavra(cleanCurrentWord);
+					word.addOcorrencia(new OcorrenciaArquivo(arquivo, lineNum, 1));
+					
+					words.add(word);
 				}
-				lineNum++; // incrementa o numero da linha
 			}
-			bufferedReader.close();
+			lineNum++; // incrementa o numero da linha
 		}
-		catch(Exception e)
-		{
-			System.out.println("Erro aqui");
-		}
+		bufferedReader.close();
+		
 		return words;
 	}
 	
