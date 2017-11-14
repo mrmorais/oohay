@@ -5,9 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class ArvoreTrie {
-	
-	//Nó raiz da árvore, não contém palavra alguma
-	private Node raiz;
+	private Node raiz; //Nó raiz da árvore, não contém palavra alguma
 	
 	/**
 	 * Construtor, inicializa raiz

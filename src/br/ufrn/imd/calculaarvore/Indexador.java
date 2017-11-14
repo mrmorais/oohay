@@ -53,6 +53,11 @@ public class Indexador {
 		return words;
 	}
 	
+	/**
+	 * Limpa uma palavra passada removendo os espaços e caracteres não aceitados
+	 * @param palavra
+	 * @return palavra limpa
+	 */
 	private static String limpaPalavra(String palavra) {
 		StringBuilder stringBuilder = new StringBuilder();
 		
@@ -68,6 +73,11 @@ public class Indexador {
 		return finalString.length() == 0 ? null : stringBuilder.toString();
 	}
 	
+	/**
+	 * Verifica se um character não é aceitado como válido
+	 * @param character
+	 * @return true caso não seja aceito, falso caso contrário
+	 */
 	private static boolean isTrash(char character) {
 		char [] trash = {' ',';', '.', ',', '!', '?', '(', ')', '[', ']', '{', '}', 
 						 '"', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };

@@ -9,14 +9,14 @@ import java.io.File;
  * @version 1
  */
 public class Arquivo {
-	private String nome;
+	private String nome; // 
 	private File file;
 	private int numeroPalavras;
 	
-	public Arquivo(String nome, String endereco) {
+	public Arquivo(String endereco) {
 		super();
-		this.nome = nome;
 		this.file = new File(endereco);
+		this.nome = file.getName();
 		this.numeroPalavras = 0;
 	}
 

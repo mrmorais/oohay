@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Principal {
+public class CalculaArvore {
 	
 	private ArvoreTrie arvore;
 	private ArrayList<Arquivo> arquivos;
 	
-	public Principal() 
+	public CalculaArvore() 
 	{
 		arvore = new ArvoreTrie();
 		arquivos = new ArrayList<Arquivo>();

@@ -6,16 +6,17 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import br.ufrn.imd.calculaarvore.Principal;
+import br.ufrn.imd.calculaarvore.CalculaArvore;
 
 public class TestPrincipal {
+	private final String path = "/home/mrmorais/eclipse-workspace/calcula-arvore";
 	
 	@Test
 	public void testInsercao() {
-		Principal princ = new Principal();
+		CalculaArvore princ = new CalculaArvore();
 		
 		try {
-			Arquivo lula = new Arquivo("lula.txt", "/home/danielmarx/Documentos/TI/Pasta sem título/calcula-arvore/data/lula.txt");
+			Arquivo lula = new Arquivo(path + "/data/lula.txt");
 			princ.inserirArquivo(lula);
 			Palavra tirei = princ.buscarPalavra("bilhões");
 			System.out.println(tirei.getValor());
@@ -26,10 +27,10 @@ public class TestPrincipal {
 
 	@Test
 	public void testPalavrasRepetidas() {
-		Principal princ = new Principal();
+		CalculaArvore princ = new CalculaArvore();
 		
 		try {
-			Arquivo google = new Arquivo("google.txt", "/home/danielmarx/Documentos/TI/Pasta sem título/calcula-arvore/data/google.txt");
+			Arquivo google = new Arquivo(path + "/data/google.txt");
 			princ.inserirArquivo(google);
 			Palavra uma = princ.buscarPalavra("inc");
 			System.out.println(uma.getOcorrencias().size());
@@ -49,12 +50,12 @@ public class TestPrincipal {
 
 	@Test
 	public void testPalavrasRemoverPalavras() {
-		Principal princ = new Principal();
+		CalculaArvore princ = new CalculaArvore();
 		
 		try {
 			
-			Arquivo google = new Arquivo("google.txt", "/home/danielmarx/Documentos/TI/Pasta sem título/calcula-arvore/data/google.txt");
-			Arquivo apple = new Arquivo("apple.txt", "/home/danielmarx/Documentos/TI/Pasta sem título/calcula-arvore/data/apple.txt");
+			Arquivo google = new Arquivo(path + "/data/google.txt");
+			Arquivo apple = new Arquivo(path + "/data/apple.txt");
 			
 			princ.inserirArquivo(google);
 			princ.inserirArquivo(apple);
