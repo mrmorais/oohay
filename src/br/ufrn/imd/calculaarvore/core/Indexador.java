@@ -24,7 +24,7 @@ public class Indexador {
 	 * @param arquivo objeto da classe arquivo
 	 * @return retorna uma lista de palavras indexadas
 	 */
-	public static List<Palavra> lerArquivo(Arquivo arquivo) throws FileNotFoundException, IOException {
+	public static List<Palavra> lerArquivo(Arquivo arquivo, ArvoreTrie blackList) throws FileNotFoundException, IOException {
 		List<Palavra> words = new ArrayList<Palavra>(); // lista para resposta
 		
 		// cria um buffered reader para poder ler o arquivo por linha
@@ -32,18 +32,30 @@ public class Indexador {
 		
 		String lineStr;
 		int lineNum = 1;
-		while ((lineStr = bufferedReader.readLine()) != null) {
+		while ((lineStr = bufferedReader.readLine()) != null) 
+		{
 			StringTokenizer stringTokenizer = new StringTokenizer(lineStr);
 			
 			// enquanto houver palavras na linha
-			while(stringTokenizer.hasMoreTokens()) {
+			while(stringTokenizer.hasMoreTokens()) 
+			{
 				String currentWord = stringTokenizer.nextToken().toLowerCase();
 				String cleanCurrentWord = limpaPalavra(currentWord);
-				if (cleanCurrentWord != null) {
+				if (cleanCurrentWord != null) 
+				{
 					Palavra word = new Palavra(cleanCurrentWord);
 					word.addOcorrencia(new OcorrenciaArquivo(arquivo, lineNum, 1));
 					
-					words.add(word);
+					if(blackList != null) 
+					{
+						//Se a palavra não está na blackList
+						if(blackList.findWord(cleanCurrentWord) == null) 
+						{
+							words.add(word);
+						}
+					}
+					else
+						words.add(word);
 				}
 			}
 			lineNum++; // incrementa o numero da linha
@@ -70,7 +82,7 @@ public class Indexador {
 		if (finalString.length() == 1 && finalString.charAt(0) == 8203) {
 			finalString = "";
 		}
-		return finalString.length() == 0 ? null : stringBuilder.toString();
+		return finalString.length() == 0 ? null : finalString;
 	}
 	
 	/**
@@ -80,7 +92,8 @@ public class Indexador {
 	 */
 	private static boolean isTrash(char character) {
 		char [] trash = {' ',';', '.', ',', '!', '?', '(', ')', '[', ']', '{', '}', 
-						 '"', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+						 '"', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+						 '+', '-', '*', '/', '&', '=', '<', '>', ':', ';', '|', '~', '^'  };
 		for (char c : trash) {
 			if (character == c) {
 				return true;

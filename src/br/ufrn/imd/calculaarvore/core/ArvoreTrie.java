@@ -78,7 +78,10 @@ public class ArvoreTrie {
 		if (palavra.isEmpty()) return null;
 		if (palavra.length() == level)
 		{
-			return node;
+			if(node.getPalavra().getOcorrencias().size() > 0)
+				return node;
+			else
+				return null;
 		}
 		char currentChar = palavra.charAt(level);
 		
