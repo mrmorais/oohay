@@ -1,22 +1,33 @@
 package br.ufrn.imd.calculaarvore.ui;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
+
+import javafx.scene.layout.Border;
 
 public class MainFrame extends JFrame {
-	public MainFrame() {
+	public MainFrame(CoreBinder binder) {
 		super("Calcula Árvore");
-		setLayout(new FlowLayout());
+		setLayout(new GridLayout(1,1));
 		
-		InsertFilePane insFilePane = new InsertFilePane();
-		add(insFilePane);
+		JTabbedPane mainTabbedPanel = new JTabbedPane();
 		
-		FileListPane listFilesPane = new FileListPane();
-		add(listFilesPane);
+		mainTabbedPanel.addTab("Indexação", new Indexador(binder));
+		
+		mainTabbedPanel.addTab("Buscador", new Buscador());
+		
+		add(mainTabbedPanel);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		pack();
+		setSize(478, 500);
+		setLocation(100, 100);
+		setResizable(false);
+		getContentPane().setBackground(new Color(255, 255, 255));
 		setVisible(true);
 	}
 }

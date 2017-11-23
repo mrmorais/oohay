@@ -1,5 +1,8 @@
 package br.ufrn.imd.calculaarvore.ui;
 
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -7,10 +10,16 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class InsertFilePane extends JPanel implements ActionListener {
-	public InsertFilePane() {
+	private CoreBinder binder;
+	
+	public InsertFilePane(CoreBinder binder, Color bgColor) {
+		setBackground(bgColor);
+		this.binder = binder;
+		
 		JButton loadFileBtn = new JButton("Carregar arquivo");
 		loadFileBtn.addActionListener(this);
 		loadFileBtn.setActionCommand("loadFile");
+		loadFileBtn.setBackground(new Color(151, 236, 234));
 		
 		add(loadFileBtn);
 	}
@@ -25,14 +34,11 @@ public class InsertFilePane extends JPanel implements ActionListener {
 				// Abre a janela para escolha do arquivo
 				int chooserPerform = fileChooser.showOpenDialog(null);
 				if (chooserPerform == JFileChooser.APPROVE_OPTION) {
-					// Implica que um arquivo foi selecionado
-					// TODO: chama um callback, ou notificar observers
+					binder.insertFile(fileChooser.getSelectedFile().getAbsolutePath());
 				}
 			} catch (Exception exception) {
 				exception.printStackTrace();
 			}
 		}
-	}
-	
-	
+	}	
 }
