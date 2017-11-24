@@ -1,4 +1,4 @@
-package br.ufrn.imd.calculaarvore.ui;
+package br.ufrn.imd.calculaarvore.ui.indexador;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -9,10 +9,13 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import br.ufrn.imd.calculaarvore.ui.CoreBinder;
+
 public class InsertFilePane extends JPanel implements ActionListener {
 	private CoreBinder binder;
 	
 	public InsertFilePane(CoreBinder binder, Color bgColor) {
+		super();
 		setBackground(bgColor);
 		this.binder = binder;
 		

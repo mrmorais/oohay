@@ -1,4 +1,4 @@
-package br.ufrn.imd.calculaarvore.ui;
+package br.ufrn.imd.calculaarvore.ui.indexador;
 
 import java.awt.Color;
 import java.util.List;
@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import br.ufrn.imd.calculaarvore.core.Arquivo;
+import br.ufrn.imd.calculaarvore.ui.FileObserver;
 
 public class FileListPane extends JPanel implements FileObserver {
 	private JTable fileList;

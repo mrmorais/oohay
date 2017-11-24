@@ -1,4 +1,4 @@
-package br.ufrn.imd.calculaarvore.ui;
+package br.ufrn.imd.calculaarvore.ui.indexador;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+
+import br.ufrn.imd.calculaarvore.ui.CoreBinder;
 
 public class Indexador extends JPanel {
 	public Indexador(CoreBinder binder) {
@@ -22,5 +24,9 @@ public class Indexador extends JPanel {
 		FileListPane fileListPane = new FileListPane(getBackground());
 		binder.subscribeFileObserver(fileListPane);
 		add(fileListPane);
+		
+		UpdateFilePane updateFilePane = new UpdateFilePane(getBackground());
+		binder.subscribeFileObserver(updateFilePane);
+		add(updateFilePane);
 	}
 }

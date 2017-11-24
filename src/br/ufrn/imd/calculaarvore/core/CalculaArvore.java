@@ -108,4 +108,8 @@ public class CalculaArvore {
 		return arvore.keysWithPrefix(prefixoBuscado);
 	}
 	
+	public ArrayList<Arquivo> getArquivos() {
+		return this.arquivos;
+	}
+	
 }

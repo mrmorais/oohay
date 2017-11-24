@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+import br.ufrn.imd.calculaarvore.ui.indexador.Indexador;
 import javafx.scene.layout.Border;
 
 public class MainFrame extends JFrame {
