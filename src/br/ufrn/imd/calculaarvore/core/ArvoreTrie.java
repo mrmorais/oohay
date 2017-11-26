@@ -234,9 +234,9 @@ public class ArvoreTrie {
 	 * 
 	 * @param word
 	 *            palavra a ser comparada
-	 * @return palavra mais similar à palavra inserida
+	 * @return sugestão para palavra mais similar à palavra inserida
 	 */
-	public Palavra getSuggestionTo(String word) {
+	public Suggestion getSuggestionTo(String word) {
 		Palavra nearest = null;
 		int minimumCost = 0;
 		boolean first = true;
@@ -256,7 +256,7 @@ public class ArvoreTrie {
 			}
 		}
 		
-		return nearest;
+		return new Suggestion(nearest, minimumCost);
 	}
 
 	/**
