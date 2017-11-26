@@ -5,204 +5,306 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class ArvoreTrie {
-	private Node raiz; //Nó raiz da árvore, não contém palavra alguma
-	
+	private Node raiz; // Nó raiz da árvore, não contém palavra alguma
+
 	/**
 	 * Construtor, inicializa raiz
 	 */
-	public ArvoreTrie() 
-	{
+	public ArvoreTrie() {
 		raiz = new Node();
 	}
-	
+
 	/**
-	 * Método público, irá inserir palavra desejada à árvore
-	 * Método secundário, faz interface com o usuário
-	 * @param newWord palavra a ser adicionada
+	 * Método público, irá inserir palavra desejada à árvore Método secundário, faz
+	 * interface com o usuário
+	 * 
+	 * @param newWord
+	 *            palavra a ser adicionada
 	 */
-	public void insert(Palavra newWord)
-	{
+	public void insert(Palavra newWord) {
 		insert(raiz, newWord, 0);
 	}
-	
+
 	/**
-	 * Faz o trabalho de inserir uma dada palavra à árvore
-	 * Método principal de inserção
-	 * @param newNode Nó utilizado para percorrer a árvore. Caso seja passado como null, será criado no passo seguinte da recursão
-	 * @param newWord Palavra a ser adicionada à árvore
-	 * @param d auxilia na indentificação do nível ao qual a palavra será inserida
+	 * Faz o trabalho de inserir uma dada palavra à árvore Método principal de
+	 * inserção
+	 * 
+	 * @param newNode
+	 *            Nó utilizado para percorrer a árvore. Caso seja passado como null,
+	 *            será criado no passo seguinte da recursão
+	 * @param newWord
+	 *            Palavra a ser adicionada à árvore
+	 * @param d
+	 *            auxilia na indentificação do nível ao qual a palavra será inserida
 	 * @return novo nó inserido
 	 */
 	private Node insert(Node node, Palavra palavra, int level) {
 		char currentChar = palavra.getValor().charAt(level);
-		
+
 		Node nodeFound = node.buscaFilho(currentChar);
 		if (nodeFound == null) {
 			Node newFilho = node.criaFilho(currentChar);
 			if (palavra.getValor().length() - 1 == level) {
-				//Palavra do novo nó será a que queremos adicionar, com isso já teremos as ocorrências O.k.
+				// Palavra do novo nó será a que queremos adicionar, com isso já teremos as
+				// ocorrências O.k.
 				newFilho.setPalavra(palavra);
 				return newFilho; // Palavra encontrada
 			}
-			return insert(newFilho, palavra, level+1);
-		}
-		else
-		{
+			return insert(newFilho, palavra, level + 1);
+		} else {
 			if (palavra.getValor().length() - 1 == level) {
 				nodeFound.getPalavra().mesclarOcorrencias(palavra);
 				return nodeFound;
 			}
 		}
-		return insert(nodeFound, palavra, level+1);
+		return insert(nodeFound, palavra, level + 1);
 	}
-		
+
 	/**
 	 * Busca uma dada palavra na árvore
+	 * 
 	 * @param word
 	 * @return nó em que se encontra a palavra
 	 */
-	public Node findWord(String palavra) 
-	{
+	public Node findWord(String palavra) {
 		return findWord(raiz, palavra, 0);
 	}
 
 	/**
 	 * Método principal de busca
-	 * @param node Nó por onde a busca irá iniciar
-	 * @param word palavra buscada
-	 * @param d auxilia para encontrar o nível em que se encontra a palavra buscada
+	 * 
+	 * @param node
+	 *            Nó por onde a busca irá iniciar
+	 * @param word
+	 *            palavra buscada
+	 * @param d
+	 *            auxilia para encontrar o nível em que se encontra a palavra
+	 *            buscada
 	 * @return nó da palavra buscada
 	 */
-	private Node findWord(Node node, String palavra, int level) 
-	{ 
-		if (palavra.isEmpty()) return null;
-		if (palavra.length() == level)
-		{
-			if(node.getPalavra().getOcorrencias().size() > 0)
+	private Node findWord(Node node, String palavra, int level) {
+		if (palavra.isEmpty())
+			return null;
+		if (palavra.length() == level) {
+			if (node.getPalavra().getOcorrencias().size() > 0)
 				return node;
 			else
 				return null;
 		}
 		char currentChar = palavra.charAt(level);
-		
+
 		Node nodeFound = node.buscaFilho(currentChar);
-		if (nodeFound == null) return null;
+		if (nodeFound == null)
+			return null;
 		return findWord(nodeFound, palavra, level + 1);
 	}
-	
+
 	/**
-	 * Padrão de busca OR. Recebe uma lista de Strings e retorna uma lista de instâncias de Palavra se ao menos 
-	 * uma das Strings na lista tiver ocorrência nas palavras da árvore.
-	 * @param listaOr lista contendo strings a serem buscadas na árvore
-	 * @return lista de Palavras, se ao menos uma da busca tiver sido encontrada, caso contrário retorna null.
+	 * Padrão de busca OR. Recebe uma lista de Strings e retorna uma lista de
+	 * instâncias de Palavra se ao menos uma das Strings na lista tiver ocorrência
+	 * nas palavras da árvore.
+	 * 
+	 * @param listaOr
+	 *            lista contendo strings a serem buscadas na árvore
+	 * @return lista de Palavras, se ao menos uma da busca tiver sido encontrada,
+	 *         caso contrário retorna null.
 	 */
-	public ArrayList<Palavra> buscaOR(ArrayList<String> listaOr)
-	{
+	public ArrayList<Palavra> buscaOR(ArrayList<String> listaOr) {
 		ArrayList<Palavra> listaRetorno = new ArrayList<Palavra>();
-		
-		for(String p : listaOr)
-		{
+
+		for (String p : listaOr) {
 			Palavra novaPalavra = findWord(p).getPalavra();
-			if(novaPalavra != null)
-				if(novaPalavra.getOcorrencias().size() != 0)
+			if (novaPalavra != null)
+				if (novaPalavra.getOcorrencias().size() != 0)
 					listaRetorno.add(novaPalavra);
 		}
-		
+
 		return listaRetorno;
 	}
-	
+
 	/**
-	 * Padrão de busca AND. Recebe uma lista de Strings e retorna uma lista de instâncias de Palabra se todas
-	 * as Strings na lista tiverem ocorrência nas palavras da árvore.
-	 * @param listaAND lista contendo Strings que se deseja encontrar a ocorrência
-	 * @return lista de Palavras, se todas as Strings tiverem sido encontradas, caso contrário retorna null.
+	 * Padrão de busca AND. Recebe uma lista de Strings e retorna uma lista de
+	 * instâncias de Palabra se todas as Strings na lista tiverem ocorrência nas
+	 * palavras da árvore.
+	 * 
+	 * @param listaAND
+	 *            lista contendo Strings que se deseja encontrar a ocorrência
+	 * @return lista de Palavras, se todas as Strings tiverem sido encontradas, caso
+	 *         contrário retorna null.
 	 */
-	public ArrayList<Palavra> buscaAND(ArrayList<String> listaAND)
-	{
+	public ArrayList<Palavra> buscaAND(ArrayList<String> listaAND) {
 		ArrayList<Palavra> listaRetorno = new ArrayList<Palavra>();
-		
-		for(String p : listaAND)
-		{
+
+		for (String p : listaAND) {
 			Palavra novaPalavra = findWord(p).getPalavra();
-			if(novaPalavra != null)
-				if(novaPalavra.getOcorrencias().size() == 0)
+			if (novaPalavra != null)
+				if (novaPalavra.getOcorrencias().size() == 0)
 					return null;
-			else
-				listaRetorno.add(novaPalavra);
+				else
+					listaRetorno.add(novaPalavra);
 		}
-		
+
 		return listaRetorno;
-	}	
+	}
+
 	/**
 	 * Deleta uma palavra passada, se ela existir na árvore
-	 * @param k palavra a ser deletada
+	 * 
+	 * @param k
+	 *            palavra a ser deletada
 	 */
-	public void delete(Palavra k) 
-	{ 
-		raiz = delete(raiz, k, 0); 
+	public void delete(Palavra k) {
+		raiz = delete(raiz, k, 0);
 	}
-	
+
 	/**
-	 * Método principal, faz a deleção da palavra em si.
-	 * O método deleta o nó da palavra bem como seus parentes diretos que não possuírem nenhum filho com palavras 
-	 * @param node Nó por onde se iniciará a busca da palavra a ser deletada
-	 * @param k palavra a ser deletada
-	 * @param d auxilia para encontrar o nível da palavra para deleção.
-	 * @return nó parente do que foi deletado e que ainda possui filhos com alguma palavra. 
-	 * Ou a própria raiz, caso a árvore fique vazia. 
+	 * Método principal, faz a deleção da palavra em si. O método deleta o nó da
+	 * palavra bem como seus parentes diretos que não possuírem nenhum filho com
+	 * palavras
+	 * 
+	 * @param node
+	 *            Nó por onde se iniciará a busca da palavra a ser deletada
+	 * @param k
+	 *            palavra a ser deletada
+	 * @param d
+	 *            auxilia para encontrar o nível da palavra para deleção.
+	 * @return nó parente do que foi deletado e que ainda possui filhos com alguma
+	 *         palavra. Ou a própria raiz, caso a árvore fique vazia.
 	 */
 	private Node delete(Node node, Palavra palavra, int level) {
-	     if (node == null) {
-	    	 return null;
-	     }
-	     
-	     if (level == palavra.getValor().length())
-	     {	
-	    	node.getPalavra().excluirOcorrencia(palavra);
-	     }
-	     else 
-	     {
-	    	char currentChar = palavra.getValor().charAt(level);
-	    	Node nodeFound = node.buscaFilho(currentChar);
-	    
-	        nodeFound = delete(nodeFound, palavra, level+1);
-	     }
-	     	     
-	     if(!node.getFilhos().isEmpty())
-	    	return node;
-	     
-	     return null;
-	}	
-	
+		if (node == null) {
+			return null;
+		}
+
+		if (level == palavra.getValor().length()) {
+			node.getPalavra().excluirOcorrencia(palavra);
+		} else {
+			char currentChar = palavra.getValor().charAt(level);
+			Node nodeFound = node.buscaFilho(currentChar);
+
+			nodeFound = delete(nodeFound, palavra, level + 1);
+		}
+
+		if (!node.getFilhos().isEmpty())
+			return node;
+
+		return null;
+	}
+
 	/**
-	 * Localiza todas as palavras com dado prefíxo e as retorna uma lista.
-	 * Faz uso do método auxiliar collect
-	 * @param pre prefixo sendo buscado. Palavra com esse prefixo pode não estar na árvore
+	 * Localiza todas as palavras com dado prefíxo e as retorna uma lista. Faz uso
+	 * do método auxiliar collect
+	 * 
+	 * @param pre
+	 *            prefixo sendo buscado. Palavra com esse prefixo pode não estar na
+	 *            árvore
 	 * @return Lista de palavras com prefixo procurado
 	 */
-	public ArrayList<Palavra> keysWithPrefix(String pre) 
-	{
-	   ArrayList<Palavra> palavrasComOPrefixo = new ArrayList<Palavra>();
-	   collect(findWord(raiz, pre, 0), palavrasComOPrefixo);
-	   return palavrasComOPrefixo;
+	public ArrayList<Palavra> keysWithPrefix(String pre) {
+		ArrayList<Palavra> palavrasComOPrefixo = new ArrayList<Palavra>();
+		collect(findWord(raiz, pre, 0), palavrasComOPrefixo);
+		return palavrasComOPrefixo;
 	}
-	
+
 	/**
-	 * Método auxiliar para achar as palavras com certo prefixo. 
-	 * Preenche uma lista com as palavras encontradas na árvore que tiverem o prefixo buscado
-	 * @param node nó por onde iniciará a busca por palavras
-	 * @param pre palavra que pode vir a ser adicionada à lista de prefixos
-	 * @param palavrasComOPrefixo lista de palavras
+	 * Método auxiliar para achar as palavras com certo prefixo. Preenche uma lista
+	 * com as palavras encontradas na árvore que tiverem o prefixo buscado
+	 * 
+	 * @param node
+	 *            nó por onde iniciará a busca por palavras
+	 * @param pre
+	 *            palavra que pode vir a ser adicionada à lista de prefixos
+	 * @param palavrasComOPrefixo
+	 *            lista de palavras
 	 */
-	private void collect(Node node, ArrayList<Palavra> palavrasComOPrefixo) 
-	{
-	   if (node == null) 
-		   return;
-	   if (node.getPalavra().getOcorrencias().size() != 0) 
-		   palavrasComOPrefixo.add(node.getPalavra());
-		
-	   for (Node filho : node.getFilhos()) {
-		   collect(filho, palavrasComOPrefixo);
-		}  
+	private void collect(Node node, ArrayList<Palavra> palavrasComOPrefixo) {
+		if (node == null)
+			return;
+		if (node.getPalavra().getOcorrencias().size() != 0)
+			palavrasComOPrefixo.add(node.getPalavra());
+
+		for (Node filho : node.getFilhos()) {
+			collect(filho, palavrasComOPrefixo);
+		}
 	}
+
+	/**
+	 * Utilizando a distância de Levenshtein o método retorna a palavra mais próxima
+	 * da palavra passada por parâmetro
+	 * 
+	 * @param word
+	 *            palavra a ser comparada
+	 * @return palavra mais similar à palavra inserida
+	 */
+	public Palavra getSuggestionTo(String word) {
+		Palavra nearest = null;
+		int minimumCost = 0;
+		boolean first = true;
+		
+		ArrayList<Palavra> palavras = getAllWords();
+		for (Palavra p : palavras) {
+			int cost = Levenshtein.distance(word, p.getValor());
+			if (first) {
+				minimumCost = cost;
+				nearest = p;
+				first = false;
+			} else {
+				if (cost < minimumCost) {
+					minimumCost = cost;
+					nearest = p;
+				}
+			}
+		}
+		
+		return nearest;
+	}
+
+	/**
+	 * Retorna uma lista de todas as palavras da árvore
+	 * @return lista de palavras
+	 */
+	public ArrayList<Palavra> getAllWords() {
+		return getAllWords(raiz);
+	}
+
+	/**
+	 * Método auxiliar para varrer todas as palavras da árvore
+	 * @param node nó para inicio da varredura (geralemente a raiz)
+	 * @return lista de palavras
+	 */
+	private ArrayList<Palavra> getAllWords(Node node) {
+		ArrayList<Palavra> words = new ArrayList<Palavra>();
+		Queue<Node> queue = new LinkedList<Node>();
+
+		if (node == null)
+			return words; // é necessário?
+		boolean first = true; // apenas uma flag para que o primeiro filho do primeiro nó
+
+		while (!queue.isEmpty() || first) { // enquanto tiver nós na fila ou for a primeira vez
+			first = false;
+			if (!queue.isEmpty()) {
+				// se a fila não está vazia, adiciono os filhos do nó cabeça na fila
+				for (Node n : queue.peek().getFilhos()) {
+					queue.add(n);
+				}
+				// por fim, consumo o nó cabeça na lista se ele possui uma palavra
+				if (queue.peek().getPalavra().getOcorrencias().size() != 0) {
+					// é uma palavra válida (contém ocorrências)
+					words.add(queue.peek().getPalavra()); // consumo a palavra
+				}
+				queue.poll(); // removo da fila
+			} else {
+				// se a fila está vazia significa que é o primeiro passo. Adiciono os filhos
+				// do nó
+				if (!node.getFilhos().isEmpty()) {
+					for (Node n : node.getFilhos()) {
+						queue.add(n);
+					}
+				}
+			}
+		}
+
+		return words;
+	}
+
 }

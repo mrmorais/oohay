@@ -158,4 +158,8 @@ public class CalculaArvore {
 		return this.arquivos;
 	}
 	
+	public ArvoreTrie getArvore() {
+		return arvore;
+	}
+	
 }
