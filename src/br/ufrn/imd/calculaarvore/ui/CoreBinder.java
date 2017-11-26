@@ -83,7 +83,6 @@ public class CoreBinder implements FileObservable, SearchObservable {
 	}
 	
 	public void searchWord(String term, int mode) {
-		System.out.println("busca "+ term + "mode " + mode);
 		ArrayList<Palavra> result = new ArrayList<Palavra>();
 		if (mode == AND_MODE) {
 			result = calcArvore.buscarPalavra(term, "and");

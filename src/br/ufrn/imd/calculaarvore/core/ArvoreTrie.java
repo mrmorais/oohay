@@ -113,10 +113,11 @@ public class ArvoreTrie {
 		ArrayList<Palavra> listaRetorno = new ArrayList<Palavra>();
 
 		for (String p : listaOr) {
-			Palavra novaPalavra = findWord(p).getPalavra();
-			if (novaPalavra != null)
-				if (novaPalavra.getOcorrencias().size() != 0)
-					listaRetorno.add(novaPalavra);
+			Node findNode = findWord(p);
+			if (findNode != null) {
+				if (findNode.getPalavra().getOcorrencias().size() != 0)
+					listaRetorno.add(findNode.getPalavra());
+			}
 		}
 
 		return listaRetorno;
@@ -136,12 +137,13 @@ public class ArvoreTrie {
 		ArrayList<Palavra> listaRetorno = new ArrayList<Palavra>();
 
 		for (String p : listaAND) {
-			Palavra novaPalavra = findWord(p).getPalavra();
-			if (novaPalavra != null)
-				if (novaPalavra.getOcorrencias().size() == 0)
+			Node findNode = findWord(p);
+			if (findNode != null) {
+				if (findNode.getPalavra().getOcorrencias().size() == 0)
 					return null;
 				else
-					listaRetorno.add(novaPalavra);
+					listaRetorno.add(findNode.getPalavra());
+			}
 		}
 
 		return listaRetorno;
