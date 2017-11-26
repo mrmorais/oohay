@@ -8,6 +8,7 @@ import java.util.List;
 public class CalculaArvore {
 	
 	public static final String CAMINHO_BLACKLIST_DANIEL = "/home/danielmarx/Documentos/TI/Pasta sem título/calcula-arvore/data/blackList.txt";
+	public static final String CAMINHO_BLACKLIST_MARADONA = "/home/mrmorais/calcula-arvore/data/blackList.txt";
 	
 	private ArvoreTrie arvore;
 	private ArvoreTrie blackList;
@@ -18,7 +19,7 @@ public class CalculaArvore {
 		arvore = new ArvoreTrie();
 		blackList = new ArvoreTrie();
 		arquivos = new ArrayList<Arquivo>();
-		gerarBlackList(CAMINHO_BLACKLIST_DANIEL);
+		gerarBlackList(CAMINHO_BLACKLIST_MARADONA);
 	}
 	
 	/**
@@ -98,11 +99,27 @@ public class CalculaArvore {
 	{	
 		Node nodeAchado;
 		
-		nodeAchado = arvore.findWord(palavraBuscada);
+		nodeAchado = arvore.findWord(palavraBuscada.toLowerCase());
 		if(nodeAchado != null)
 			return nodeAchado.getPalavra();
 		else
 			return null;
+	}
+	
+	public ArrayList<Palavra> buscarPalavra(String term, String mode) {
+		String[] termsList = term.toLowerCase().split(" ");
+		ArrayList<String> termsArr = new ArrayList<String>();
+		for (int i = 0; i < termsList.length; i++) {
+			termsArr.add(termsList[i]);
+		}
+		
+		if (mode == "and") {
+			return arvore.buscaAND(termsArr);
+		} else if (mode == "or") {
+			return arvore.buscaOR(termsArr);
+		} else {
+			return new ArrayList<Palavra>();
+		}
 	}
 	
 	/**

@@ -6,14 +6,24 @@ import java.util.List;
 
 import br.ufrn.imd.calculaarvore.core.*;
 
-public class CoreBinder implements FileObservable {
+public class CoreBinder implements FileObservable, SearchObservable {
 
 	private CalculaArvore calcArvore;
-	List<FileObserver> fileObservers;
+	private List<FileObserver> fileObservers;
+	private List<SearchObserver> searchObservers;
+	private ArrayList<Palavra> results;
+	
+	
+	public static final int AND_MODE = 1;
+	public static final int OR_MODE = 2;
+	
 
 	public CoreBinder() {
 		this.calcArvore = new CalculaArvore();
 		this.fileObservers = new ArrayList<FileObserver>();
+		this.searchObservers = new ArrayList<SearchObserver>();
+		
+		this.results = new ArrayList<Palavra>();
 	}
 
 	@Override
@@ -26,7 +36,18 @@ public class CoreBinder implements FileObservable {
 		for (FileObserver obs : fileObservers) {
 			obs.update(calcArvore.getArquivos());
 		}
+	}
+	
+	@Override
+	public void subscribeSearchObserver(SearchObserver observer) {
+		this.searchObservers.add(observer);
+	}
 
+	@Override
+	public void notifySearchObservers() {
+		for (SearchObserver obs : searchObservers) {
+			obs.update(this.results);
+		}
 	}
 
 	/**
@@ -59,6 +80,19 @@ public class CoreBinder implements FileObservable {
 	public void insertFile(String filePath) throws IOException {
 		calcArvore.inserirArquivo(new Arquivo(filePath));
 		this.notifyFileObservers();		
+	}
+	
+	public void searchWord(String term, int mode) {
+		System.out.println("busca "+ term + "mode " + mode);
+		ArrayList<Palavra> result = new ArrayList<Palavra>();
+		if (mode == AND_MODE) {
+			result = calcArvore.buscarPalavra(term, "and");
+		} else if (mode == OR_MODE) {
+			result = calcArvore.buscarPalavra(term, "or");
+		}
+		
+		this.results = result;
+		notifySearchObservers();
 	}
 
 }

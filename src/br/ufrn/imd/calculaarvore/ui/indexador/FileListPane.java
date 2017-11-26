@@ -90,7 +90,12 @@ public class FileListPane extends JPanel implements FileObserver, ActionListener
 		
 		if (row >= 0) {
 			if (e.getActionCommand() == "remove") {
-				this.binder.removeFile(row);
+				int confirmation = JOptionPane.showConfirmDialog(null, 
+						"Deseja realmente remover o arquivo da indexação? Ele não será excluído do "
+						+ "seu computador.");
+				if (confirmation == JOptionPane.YES_OPTION) {
+					this.binder.removeFile(row);
+				}
 			} else if (e.getActionCommand() == "refresh") {
 				try {
 					this.binder.refreshFile(row);

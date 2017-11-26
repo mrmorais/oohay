@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+import br.ufrn.imd.calculaarvore.ui.buscador.Buscador;
 import br.ufrn.imd.calculaarvore.ui.indexador.Indexador;
 import javafx.scene.layout.Border;
 
@@ -20,12 +21,12 @@ public class MainFrame extends JFrame {
 		
 		mainTabbedPanel.addTab("Indexação", new Indexador(binder));
 		
-		mainTabbedPanel.addTab("Buscador", new Buscador());
+		mainTabbedPanel.addTab("Buscador", new Buscador(binder));
 		
 		add(mainTabbedPanel);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(478, 500);
+		setSize(478, 510);
 		setLocation(100, 100);
 		setResizable(false);
 		getContentPane().setBackground(new Color(255, 255, 255));
