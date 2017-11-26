@@ -157,9 +157,9 @@ public class CalculaArvore {
 	public ArrayList<Arquivo> getArquivos() {
 		return this.arquivos;
 	}
-	
-	public ArvoreTrie getArvore() {
-		return arvore;
+
+	public Suggestion getSuggestionTo(String word) {
+		return arvore.getSuggestionTo(word);
 	}
 	
 }

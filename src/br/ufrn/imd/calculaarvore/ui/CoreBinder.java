@@ -49,6 +49,13 @@ public class CoreBinder implements FileObservable, SearchObservable {
 			obs.update(this.results);
 		}
 	}
+	
+	@Override
+	public void notifySearchObserversWithSuggestion(Palavra word) {
+		for (SearchObserver obs : searchObservers) {
+			obs.suggest(word);
+		}
+	}
 
 	/**
 	 * Remove um arquivo a partir do índice na lista
@@ -91,7 +98,18 @@ public class CoreBinder implements FileObservable, SearchObservable {
 		}
 		
 		this.results = result;
-		notifySearchObservers();
+		if (results.size() > 0) {
+			notifySearchObservers();
+		} else {
+			Suggestion sug = calcArvore.getSuggestionTo(term);
+			if (sug.getCost() < 6) {
+				// Notifica sugestão para os observers
+				notifySearchObserversWithSuggestion(sug.getWord());
+			} else {
+				// Notifica os observers, mesmo com array de tamanho 0
+				notifySearchObservers();
+			}
+		}
 	}
 
 }
