@@ -14,7 +14,7 @@ import br.ufrn.imd.calculaarvore.core.*;
 public class TestPrincipal {
 	private final String pathMaradona = "/home/mrmorais/eclipse-workspace/calcula-arvore";
 	private final String pathDaniel = "/home/danielmarx/Documentos/TI/Pasta sem título/calcula-arvore";
-
+	
 	@Test
 	public void testInsercao() {
 		CalculaArvore princ = new CalculaArvore();
@@ -107,6 +107,40 @@ public class TestPrincipal {
 			
 		} catch(Exception e) {
 			fail();
+		}
+	}
+
+	@Test
+	public void testBlackList() {
+		CalculaArvore princ = new CalculaArvore();
+		
+		try {
+						
+			Arquivo google = new Arquivo(pathDaniel + "/data/google.txt");
+			
+			princ.inserirArquivo(google);
+						
+			//Google está na blackList
+			Palavra googleWord = princ.buscarPalavra("google");
+			Palavra muitas = princ.buscarPalavra("muitas");
+			Palavra universalmente = princ.buscarPalavra("universalmente");
+
+			if(googleWord == null)
+				System.out.println("Palavra na blackList");
+			else
+				fail();
+			
+			if(muitas == null) 
+				System.out.println("Palavra na blackList");
+			else
+				fail();
+			
+			if(universalmente == null)
+				System.out.println("Palavra na blackList");
+			else
+				fail();
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 	

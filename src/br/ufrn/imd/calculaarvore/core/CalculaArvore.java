@@ -7,13 +7,18 @@ import java.util.List;
 
 public class CalculaArvore {
 	
+	public static final String CAMINHO_BLACKLIST_DANIEL = "/home/danielmarx/Documentos/TI/Pasta sem título/calcula-arvore/data/blackList.txt";
+	
 	private ArvoreTrie arvore;
+	private ArvoreTrie blackList;
 	private ArrayList<Arquivo> arquivos;
 	
 	public CalculaArvore() 
 	{
 		arvore = new ArvoreTrie();
+		blackList = new ArvoreTrie();
 		arquivos = new ArrayList<Arquivo>();
+		gerarBlackList(CAMINHO_BLACKLIST_DANIEL);
 	}
 	
 	/**
@@ -30,7 +35,7 @@ public class CalculaArvore {
 		
 		try 
 		{
-			palavrasNoArquivo = Indexador.lerArquivo(arquivo);
+			palavrasNoArquivo = Indexador.lerArquivo(arquivo, blackList);
 			arquivo.setNumeroPalavras(palavrasNoArquivo.size());
 			
 			for(Palavra p : palavrasNoArquivo)
@@ -57,7 +62,7 @@ public class CalculaArvore {
 		
 		try 
 		{
-			palavrasNoArquivo = Indexador.lerArquivo(arquivo);
+			palavrasNoArquivo = Indexador.lerArquivo(arquivo, blackList);
 			
 			for(Palavra p : palavrasNoArquivo)
 			{
@@ -94,8 +99,10 @@ public class CalculaArvore {
 		Node nodeAchado;
 		
 		nodeAchado = arvore.findWord(palavraBuscada);
-		
-		return nodeAchado.getPalavra();
+		if(nodeAchado != null)
+			return nodeAchado.getPalavra();
+		else
+			return null;
 	}
 	
 	/**
@@ -106,6 +113,28 @@ public class CalculaArvore {
 	public ArrayList<Palavra> buscaPrefixo(String prefixoBuscado)
 	{	
 		return arvore.keysWithPrefix(prefixoBuscado);
+	}
+	
+	private void gerarBlackList(String enderecoArquivoBlackList)
+	{
+		
+		List<Palavra> palavrasDaBlackList;
+		Arquivo bListArquivo = new Arquivo(enderecoArquivoBlackList);
+		
+		try 
+		{
+			palavrasDaBlackList = Indexador.lerArquivo(bListArquivo, null);
+			bListArquivo.setNumeroPalavras(palavrasDaBlackList.size());
+			
+			for(Palavra p : palavrasDaBlackList)
+			{	
+				blackList.insert(p);
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public ArrayList<Arquivo> getArquivos() {
