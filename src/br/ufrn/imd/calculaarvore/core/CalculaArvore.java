@@ -135,7 +135,10 @@ public class CalculaArvore {
 		{
 			System.out.println(e.getMessage());
 		}
-		
+	}
+	
+	public ArrayList<Arquivo> getArquivos() {
+		return this.arquivos;
 	}
 	
 }
