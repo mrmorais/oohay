@@ -21,7 +21,7 @@ public class Indexador extends JPanel {
 		
 		add(new InsertFilePane(binder, getBackground()));
 		
-		FileListPane fileListPane = new FileListPane(getBackground());
+		FileListPane fileListPane = new FileListPane(binder, getBackground());
 		binder.subscribeFileObserver(fileListPane);
 		add(fileListPane);
 		
