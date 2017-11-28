@@ -8,7 +8,7 @@ import br.ufrn.imd.calculaarvore.core.*;
 
 public class CoreBinder implements FileObservable, SearchObservable {
 
-	private CalculaArvore calcArvore;
+	private Oohay calcArvore;
 	private List<FileObserver> fileObservers;
 	private List<SearchObserver> searchObservers;
 	private ArrayList<Palavra> results;
@@ -19,7 +19,7 @@ public class CoreBinder implements FileObservable, SearchObservable {
 	
 
 	public CoreBinder() {
-		this.calcArvore = new CalculaArvore();
+		this.calcArvore = new Oohay();
 		this.fileObservers = new ArrayList<FileObserver>();
 		this.searchObservers = new ArrayList<SearchObserver>();
 		
@@ -97,17 +97,22 @@ public class CoreBinder implements FileObservable, SearchObservable {
 			result = calcArvore.buscarPalavra(term, "or");
 		}
 		
-		this.results = result;
-		if (results.size() > 0) {
+		if (result == null) {
+			this.results = new ArrayList<Palavra>();
 			notifySearchObservers();
 		} else {
-			Suggestion sug = calcArvore.getSuggestionTo(term);
-			if (sug.getCost() < 6) {
-				// Notifica sugestão para os observers
-				notifySearchObserversWithSuggestion(sug.getWord());
-			} else {
-				// Notifica os observers, mesmo com array de tamanho 0
+			this.results = result;
+			if (results.size() > 0) {
 				notifySearchObservers();
+			} else {
+				Suggestion sug = calcArvore.getSuggestionTo(term);
+				if (sug.getCost() < 6) {
+					// Notifica sugestão para os observers
+					notifySearchObserversWithSuggestion(sug.getWord());
+				} else {
+					// Notifica os observers, mesmo com array de tamanho 0
+					notifySearchObservers();
+				}
 			}
 		}
 	}

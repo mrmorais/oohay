@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculaArvore {
+public class Oohay {
 	
 	public static final String CAMINHO_BLACKLIST_DANIEL = "/home/danielmarx/Documentos/TI/Pasta sem título/calcula-arvore/data/blackList.txt";
 	public static final String CAMINHO_BLACKLIST_MARADONA = "/home/mrmorais/calcula-arvore/data/blackList.txt";
@@ -14,7 +14,7 @@ public class CalculaArvore {
 	private ArvoreTrie blackList;
 	private ArrayList<Arquivo> arquivos;
 	
-	public CalculaArvore() 
+	public Oohay() 
 	{
 		arvore = new ArvoreTrie();
 		blackList = new ArvoreTrie();

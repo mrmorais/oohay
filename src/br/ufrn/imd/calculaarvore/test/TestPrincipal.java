@@ -17,7 +17,7 @@ public class TestPrincipal {
 	
 	@Test
 	public void testInsercao() {
-		CalculaArvore princ = new CalculaArvore();
+		Oohay princ = new Oohay();
 		
 		try {
 			Arquivo lula = new Arquivo(pathDaniel + "/data/lula.txt");
@@ -32,7 +32,7 @@ public class TestPrincipal {
 
 	@Test
 	public void testPalavrasRepetidas() {
-		CalculaArvore princ = new CalculaArvore();
+		Oohay princ = new Oohay();
 		
 		try {
 			Arquivo google = new Arquivo(pathDaniel + "/data/google.txt");
@@ -53,7 +53,7 @@ public class TestPrincipal {
 
 	@Test
 	public void testPalavrasRemoverPalavras() {
-		CalculaArvore princ = new CalculaArvore();
+		Oohay princ = new Oohay();
 		
 		try {
 			
@@ -78,7 +78,7 @@ public class TestPrincipal {
 	
 	@Test
 	public void testBuscaPorPrefixo() {
-		CalculaArvore princ = new CalculaArvore();
+		Oohay princ = new Oohay();
 		
 		try {
 			
@@ -112,7 +112,7 @@ public class TestPrincipal {
 
 	@Test
 	public void testBlackList() {
-		CalculaArvore princ = new CalculaArvore();
+		Oohay princ = new Oohay();
 		
 		try {
 						

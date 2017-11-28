@@ -139,11 +139,9 @@ public class ArvoreTrie {
 		for (String p : listaAND) {
 			Node findNode = findWord(p);
 			if (findNode != null) {
-				if (findNode.getPalavra().getOcorrencias().size() == 0)
-					return null;
-				else
-					listaRetorno.add(findNode.getPalavra());
-			}
+				listaRetorno.add(findNode.getPalavra());
+			} else
+				return null;
 		}
 
 		return listaRetorno;
@@ -242,7 +240,7 @@ public class ArvoreTrie {
 		Palavra nearest = null;
 		int minimumCost = 0;
 		boolean first = true;
-		
+
 		ArrayList<Palavra> palavras = getAllWords();
 		for (Palavra p : palavras) {
 			int cost = Levenshtein.distance(word, p.getValor());
@@ -257,12 +255,13 @@ public class ArvoreTrie {
 				}
 			}
 		}
-		
+
 		return new Suggestion(nearest, minimumCost);
 	}
 
 	/**
 	 * Retorna uma lista de todas as palavras da árvore
+	 * 
 	 * @return lista de palavras
 	 */
 	public ArrayList<Palavra> getAllWords() {
@@ -271,7 +270,9 @@ public class ArvoreTrie {
 
 	/**
 	 * Método auxiliar para varrer todas as palavras da árvore
-	 * @param node nó para inicio da varredura (geralemente a raiz)
+	 * 
+	 * @param node
+	 *            nó para inicio da varredura (geralemente a raiz)
 	 * @return lista de palavras
 	 */
 	private ArrayList<Palavra> getAllWords(Node node) {

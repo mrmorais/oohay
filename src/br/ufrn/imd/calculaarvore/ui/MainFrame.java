@@ -10,11 +10,12 @@ import javax.swing.JTabbedPane;
 
 import br.ufrn.imd.calculaarvore.ui.buscador.Buscador;
 import br.ufrn.imd.calculaarvore.ui.indexador.Indexador;
+import br.ufrn.imd.calculaarvore.ui.sobre.Sobre;
 import javafx.scene.layout.Border;
 
 public class MainFrame extends JFrame {
 	public MainFrame(CoreBinder binder) {
-		super("Calcula Árvore");
+		super("oohaY!");
 		setLayout(new GridLayout(1,1));
 		
 		JTabbedPane mainTabbedPanel = new JTabbedPane();
@@ -22,6 +23,8 @@ public class MainFrame extends JFrame {
 		mainTabbedPanel.addTab("Indexação", new Indexador(binder));
 		
 		mainTabbedPanel.addTab("Buscador", new Buscador(binder));
+		
+		mainTabbedPanel.addTab("Sobre", new Sobre());
 		
 		add(mainTabbedPanel);
 		
