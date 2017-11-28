@@ -1,0 +1,48 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.ufrn.imd.oohay</groupId>
+	<artifactId>oohay</artifactId>
+	<version>1.0</version>
+
+	<build>
+		<directory>target</directory>
+		<outputDirectory>target/classes</outputDirectory>
+		<testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		<sourceDirectory>src/br/ufrn/imd/oohay</sourceDirectory>
+		
+		<testResources>
+			<testResource>
+				<directory>
+					${project.basedir}/src/br/ufrn/imd/test
+				</directory>
+			</testResource>
+		</testResources>
+		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>br.ufrn.imd.oohay.ui.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	
+</project>
