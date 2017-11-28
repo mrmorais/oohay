@@ -76,39 +76,6 @@ public class TestPrincipal {
 		}
 	}
 	
-	@Test
-	public void testBuscaPorPrefixo() {
-		Oohay princ = new Oohay();
-		
-		try {
-			
-			String pre1 = "pro";
-			String pre2 = "uni";
-			
-			Arquivo google = new Arquivo(pathDaniel + "/data/google.txt");
-			
-			princ.inserirArquivo(google);
-			
-			ArrayList<Palavra> prefixadas = princ.buscaPrefixo(pre1);
-			ArrayList<Palavra> prefixadas2 = princ.buscaPrefixo(pre2);
-			
-			System.out.println("Prefixo: " + pre1 + "\n");
-			for(Palavra p : prefixadas)
-			{
-				System.out.println(p.getValor());
-			}
-			
-			System.out.println();
-			System.out.println("Prefixo: " + pre2 + "\n");
-			for(Palavra p : prefixadas2)
-			{
-				System.out.println(p.getValor());
-			}
-			
-		} catch(Exception e) {
-			fail();
-		}
-	}
 
 	@Test
 	public void testBlackList() {

@@ -26,7 +26,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>br.ufrn.imd.oohay.ui.Main</mainClass>
+							<mainClass>br.ufrn.imd.oohay.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

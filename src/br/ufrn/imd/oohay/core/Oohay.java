@@ -5,114 +5,143 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe principal que utiliza os componentes do sistema para interfacear com
+ * outros módulos.
+ * 
+ * @author mrmorais
+ * @version 1
+ *
+ */
 public class Oohay {
-	
-	public static final String CAMINHO_BLACKLIST_DANIEL = "/home/danielmarx/Documentos/TI/Pasta sem título/calcula-arvore/data/blackList.txt";
-	public static final String CAMINHO_BLACKLIST_MARADONA = "/home/mrmorais/calcula-arvore/data/blackList.txt";
-	
+
+	/**
+	 * Instância da árvore de prefixos para armazenamento das palavras
+	 */
 	private ArvoreTrie arvore;
+	/**
+	 * Arvore de palavras que representa uma lista de palavras não indexáveis
+	 */
 	private ArvoreTrie blackList;
+	/**
+	 * Lista de arquivos indexados no sistema
+	 */
 	private ArrayList<Arquivo> arquivos;
-	
-	public Oohay() 
-	{
+
+	/**
+	 * Construtor padrão que inicializa os atributos e gera a árvore que representa
+	 * a lista negra de palavras
+	 */
+	public Oohay() {
 		arvore = new ArvoreTrie();
 		blackList = new ArvoreTrie();
 		arquivos = new ArrayList<Arquivo>();
-		gerarBlackList(CAMINHO_BLACKLIST_MARADONA);
+		gerarBlackList("data/blackList.txt");
 	}
-	
+
 	/**
-	 * Adiciona um novo arquivo à lista de arquivos
-	 * Todas as palavras do arquivo serão adicionadas à árvore trie.
-	 * Inserir principal, faz interface com o usuário
-	 * @param arquivo Objeto arquivo que será inserido
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
+	 * Adiciona um novo arquivo à lista de arquivos Todas as palavras do arquivo
+	 * serão adicionadas à árvore trie. Inserir principal, faz interface com o
+	 * usuário
+	 * 
+	 * @param arquivo
+	 *            Objeto arquivo que será inserido
+	 * @throws IOException
+	 *             erro de acesso
+	 * @throws FileNotFoundException
+	 *             arquivo não encontrado
 	 */
-	public void inserirArquivo(Arquivo arquivo) throws FileNotFoundException, IOException
-	{
+	public void inserirArquivo(Arquivo arquivo) throws FileNotFoundException, IOException {
 		List<Palavra> palavrasNoArquivo;
-		
-		try 
-		{
+
+		try {
 			palavrasNoArquivo = Indexador.lerArquivo(arquivo, blackList);
 			arquivo.setNumeroPalavras(palavrasNoArquivo.size());
-			
-			for(Palavra p : palavrasNoArquivo)
-			{
+
+			for (Palavra p : palavrasNoArquivo) {
 				arvore.insert(p);
 			}
-			
+
 			arquivos.add(arquivo);
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	/**
-	 * Remove o arquivo da lista de arquivos, bem como todas as suas palavras da árvore
-	 * @param arquivo arquivo a ser excluído
+	 * Remove o arquivo da lista de arquivos, bem como todas as suas palavras da
+	 * árvore
+	 * 
+	 * @param arquivo
+	 *            arquivo a ser excluído
 	 */
-	public void removerArquivo(Arquivo arquivo)
-	{
-		
+	public void removerArquivo(Arquivo arquivo) {
+
 		List<Palavra> palavrasNoArquivo;
-		
-		try 
-		{
+
+		try {
 			palavrasNoArquivo = Indexador.lerArquivo(arquivo, blackList);
-			
-			for(Palavra p : palavrasNoArquivo)
-			{
+
+			for (Palavra p : palavrasNoArquivo) {
 				arvore.delete(p);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		arquivos.remove(arquivo);
 	}
-	
+
 	/**
-	 * Atualiza um arquivo já existente na árvore, não checa quais foram as mudanças.
-	 * @param arquivo Arquivo a ser atualizado
+	 * Atualiza um arquivo já existente na árvore, não checa quais foram as
+	 * mudanças.
+	 * 
+	 * @param arquivo
+	 *            Arquivo a ser atualizado
 	 * @throws FileNotFoundException
+	 *             arquivo não encontrado
 	 * @throws IOException
+	 *             erro de acesso
 	 */
-	public void atualizarArquivo(Arquivo arquivo) throws FileNotFoundException, IOException
-	{
+	public void atualizarArquivo(Arquivo arquivo) throws FileNotFoundException, IOException {
 		removerArquivo(arquivo);
 		inserirArquivo(arquivo);
 	}
-	
+
 	/**
 	 * Encontrar uma palavra na árvore passando uma string.
-	 * @param palavraBuscada String buscada
+	 * 
+	 * @param palavraBuscada
+	 *            String buscada
 	 * @return um objeto Palavra
 	 */
-	public Palavra buscarPalavra(String palavraBuscada)
-	{	
+	public Palavra buscarPalavra(String palavraBuscada) {
 		Node nodeAchado;
-		
+
 		nodeAchado = arvore.findWord(palavraBuscada.toLowerCase());
-		if(nodeAchado != null)
+		if (nodeAchado != null)
 			return nodeAchado.getPalavra();
 		else
 			return null;
 	}
-	
+
+	/**
+	 * Faz uma busca na árvore de prefixos por palavras que passem nos modos de
+	 * busca "AND" ou "OR"
+	 * 
+	 * @param term
+	 *            termo ou palavra pesquisada
+	 * @param mode
+	 *            modo de busca "and" ou "or"
+	 * @return lista contendo palavras que combinam com a busca efetuada.
+	 */
 	public ArrayList<Palavra> buscarPalavra(String term, String mode) {
 		String[] termsList = term.toLowerCase().split(" ");
 		ArrayList<String> termsArr = new ArrayList<String>();
 		for (int i = 0; i < termsList.length; i++) {
 			termsArr.add(termsList[i]);
 		}
-		
+
 		if (mode == "and") {
 			return arvore.buscaAND(termsArr);
 		} else if (mode == "or") {
@@ -121,45 +150,50 @@ public class Oohay {
 			return new ArrayList<Palavra>();
 		}
 	}
-	
+
 	/**
-	 * Retorna uma lista de palavras que contêm o prefixo passado
-	 * @param prefixoBuscado prefixo que deve estar nas palavras da lista retornada
-	 * @return Lista com palavras cujo valor contêm o prefixo especificado
+	 * Inicializa a árvore blackList indexando as palavra existentes no arquivo do
+	 * caminho passado como parâmetro
+	 * 
+	 * @param enderecoArquivoBlackList
+	 *            caminho no sistema de arquivos que aponta para o arquivo de
+	 *            blacklist
 	 */
-	public ArrayList<Palavra> buscaPrefixo(String prefixoBuscado)
-	{	
-		return arvore.keysWithPrefix(prefixoBuscado);
-	}
-	
-	private void gerarBlackList(String enderecoArquivoBlackList)
-	{
-		
+	private void gerarBlackList(String enderecoArquivoBlackList) {
+
 		List<Palavra> palavrasDaBlackList;
 		Arquivo bListArquivo = new Arquivo(enderecoArquivoBlackList);
-		
-		try 
-		{
+
+		try {
 			palavrasDaBlackList = Indexador.lerArquivo(bListArquivo, null);
 			bListArquivo.setNumeroPalavras(palavrasDaBlackList.size());
-			
-			for(Palavra p : palavrasDaBlackList)
-			{	
+
+			for (Palavra p : palavrasDaBlackList) {
 				blackList.insert(p);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
-	public ArrayList<Arquivo> getArquivos() {
-		return this.arquivos;
-	}
 
+	/**
+	 * Repassa um pedido de sugestão de palavras realizado pela árvore de palavras
+	 * 
+	 * @param word
+	 *            palavra a ser combinada na sugestão
+	 * @return sugestão contendo palavra e fator de proximidade entre a mesma e o
+	 *         termo passado como parâmetro
+	 */
 	public Suggestion getSuggestionTo(String word) {
 		return arvore.getSuggestionTo(word);
 	}
-	
+
+	/**
+	 * Retorna a lista de arquivos indexados no sistema
+	 * 
+	 * @return lista de arquivos
+	 */
+	public ArrayList<Arquivo> getArquivos() {
+		return this.arquivos;
+	}
 }

@@ -4,8 +4,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Árvore Trie do tipo "Árvore de Prefixos" utilizada para armazenar e buscar
+ * palavras no sistema
+ * 
+ * @author danielmarx
+ * @version 1
+ */
 public class ArvoreTrie {
-	private Node raiz; // Nó raiz da árvore, não contém palavra alguma
+	/**
+	 * Nó raiz da árvore, não contém palavra alguma
+	 */
+	private Node raiz;
 
 	/**
 	 * Construtor, inicializa raiz
@@ -15,8 +25,8 @@ public class ArvoreTrie {
 	}
 
 	/**
-	 * Método público, irá inserir palavra desejada à árvore Método secundário, faz
-	 * interface com o usuário
+	 * Método público, irá inserir palavra desejada à árvore usando um método
+	 * secundário, faz interface com a classe utilizadora
 	 * 
 	 * @param newWord
 	 *            palavra a ser adicionada
@@ -26,15 +36,15 @@ public class ArvoreTrie {
 	}
 
 	/**
-	 * Faz o trabalho de inserir uma dada palavra à árvore Método principal de
-	 * inserção
+	 * Faz o trabalho de inserir uma dada palavra à árvore a partir de um nó
+	 * especificado
 	 * 
-	 * @param newNode
+	 * @param node
 	 *            Nó utilizado para percorrer a árvore. Caso seja passado como null,
 	 *            será criado no passo seguinte da recursão
-	 * @param newWord
+	 * @param palavra
 	 *            Palavra a ser adicionada à árvore
-	 * @param d
+	 * @param level
 	 *            auxilia na indentificação do nível ao qual a palavra será inserida
 	 * @return novo nó inserido
 	 */
@@ -63,7 +73,8 @@ public class ArvoreTrie {
 	/**
 	 * Busca uma dada palavra na árvore
 	 * 
-	 * @param word
+	 * @param palavra
+	 *            palavra buscada
 	 * @return nó em que se encontra a palavra
 	 */
 	public Node findWord(String palavra) {
@@ -75,9 +86,9 @@ public class ArvoreTrie {
 	 * 
 	 * @param node
 	 *            Nó por onde a busca irá iniciar
-	 * @param word
+	 * @param palavra
 	 *            palavra buscada
-	 * @param d
+	 * @param level
 	 *            auxilia para encontrar o nível em que se encontra a palavra
 	 *            buscada
 	 * @return nó da palavra buscada
@@ -140,10 +151,10 @@ public class ArvoreTrie {
 			Node findNode = findWord(p);
 			if (findNode != null) {
 				listaRetorno.add(findNode.getPalavra());
-			} else
+			} else {
 				return new ArrayList<Palavra>();
+			}
 		}
-
 		return listaRetorno;
 	}
 
@@ -164,9 +175,9 @@ public class ArvoreTrie {
 	 * 
 	 * @param node
 	 *            Nó por onde se iniciará a busca da palavra a ser deletada
-	 * @param k
+	 * @param palavra
 	 *            palavra a ser deletada
-	 * @param d
+	 * @param level
 	 *            auxilia para encontrar o nível da palavra para deleção.
 	 * @return nó parente do que foi deletado e que ainda possui filhos com alguma
 	 *         palavra. Ou a própria raiz, caso a árvore fique vazia.
@@ -189,43 +200,6 @@ public class ArvoreTrie {
 			return node;
 
 		return null;
-	}
-
-	/**
-	 * Localiza todas as palavras com dado prefíxo e as retorna uma lista. Faz uso
-	 * do método auxiliar collect
-	 * 
-	 * @param pre
-	 *            prefixo sendo buscado. Palavra com esse prefixo pode não estar na
-	 *            árvore
-	 * @return Lista de palavras com prefixo procurado
-	 */
-	public ArrayList<Palavra> keysWithPrefix(String pre) {
-		ArrayList<Palavra> palavrasComOPrefixo = new ArrayList<Palavra>();
-		collect(findWord(raiz, pre, 0), palavrasComOPrefixo);
-		return palavrasComOPrefixo;
-	}
-
-	/**
-	 * Método auxiliar para achar as palavras com certo prefixo. Preenche uma lista
-	 * com as palavras encontradas na árvore que tiverem o prefixo buscado
-	 * 
-	 * @param node
-	 *            nó por onde iniciará a busca por palavras
-	 * @param pre
-	 *            palavra que pode vir a ser adicionada à lista de prefixos
-	 * @param palavrasComOPrefixo
-	 *            lista de palavras
-	 */
-	private void collect(Node node, ArrayList<Palavra> palavrasComOPrefixo) {
-		if (node == null)
-			return;
-		if (node.getPalavra().getOcorrencias().size() != 0)
-			palavrasComOPrefixo.add(node.getPalavra());
-
-		for (Node filho : node.getFilhos()) {
-			collect(filho, palavrasComOPrefixo);
-		}
 	}
 
 	/**
@@ -260,7 +234,8 @@ public class ArvoreTrie {
 	}
 
 	/**
-	 * Retorna uma lista de todas as palavras da árvore
+	 * Retorna uma lista de todas as palavras da árvore, fazendo um percorrimento
+	 * por nível
 	 * 
 	 * @return lista de palavras
 	 */
@@ -272,7 +247,6 @@ public class ArvoreTrie {
 	 * Método auxiliar para varrer todas as palavras da árvore
 	 * 
 	 * @param node
-	 *            nó para inicio da varredura (geralemente a raiz)
 	 * @return lista de palavras
 	 */
 	private ArrayList<Palavra> getAllWords(Node node) {

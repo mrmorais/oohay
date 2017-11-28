@@ -1,7 +1,27 @@
 package br.ufrn.imd.oohay.core;
 
-// Este código foi extraído da seguinte fonte: https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance#Java
+/**
+ * Implementa o algoritmo de Levenshtein para calculo de distância entre duas
+ * sequências de caracteres Este algoritmo foi extraído do wikibook "Algorithm
+ * Implementation" no seguinte endereço:
+ * https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance#Java
+ * 
+ * @author mrmorais
+ * @version 1
+ */
 public class Levenshtein {
+
+	/**
+	 * Método que calcula a distância de Levenshtein entre duas sequências de
+	 * caracteres A e B
+	 * 
+	 * @param lhs
+	 *            sequencia A
+	 * @param rhs
+	 *            sequencia B
+	 * @return valor inteiro que determina o custo (distância) de alterações para se
+	 *         construir a palavra A alterando-se a B
+	 */
 	public static int distance(CharSequence lhs, CharSequence rhs) {
 		int len0 = lhs.length() + 1;
 		int len1 = rhs.length() + 1;
