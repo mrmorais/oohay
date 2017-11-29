@@ -1,5 +1,6 @@
 package br.ufrn.imd.oohay.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @version 1
  *
  */
-public class Palavra {
+public class Palavra implements Serializable {
 	/**
 	 * Valor String da palavra
 	 */

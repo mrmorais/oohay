@@ -14,7 +14,6 @@ import java.util.List;
  *
  */
 public class Oohay {
-
 	/**
 	 * Instância da árvore de prefixos para armazenamento das palavras
 	 */
@@ -28,6 +27,8 @@ public class Oohay {
 	 */
 	private ArrayList<Arquivo> arquivos;
 
+	private StoreContainer storeContainer;
+
 	/**
 	 * Construtor padrão que inicializa os atributos e gera a árvore que representa
 	 * a lista negra de palavras
@@ -36,7 +37,15 @@ public class Oohay {
 		arvore = new ArvoreTrie();
 		blackList = new ArvoreTrie();
 		arquivos = new ArrayList<Arquivo>();
+		storeContainer = new StoreContainer(arvore, arquivos);
+
+		if (storeContainer.load("data/oohay.sav")) {
+			arvore = storeContainer.getArvore();
+			arquivos = storeContainer.getArquivos();
+		}
+
 		gerarBlackList("data/blackList.txt");
+		this.store();
 	}
 
 	/**
@@ -66,6 +75,7 @@ public class Oohay {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		this.store();
 	}
 
 	/**
@@ -90,6 +100,7 @@ public class Oohay {
 		}
 
 		arquivos.remove(arquivo);
+		this.store();
 	}
 
 	/**
@@ -106,6 +117,7 @@ public class Oohay {
 	public void atualizarArquivo(Arquivo arquivo) throws FileNotFoundException, IOException {
 		removerArquivo(arquivo);
 		inserirArquivo(arquivo);
+		this.store();
 	}
 
 	/**
@@ -174,6 +186,13 @@ public class Oohay {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	/**
+	 * Serializa a árvore e a lista de arquivos em um arquivo
+	 */
+	private void store() {
+		storeContainer.store("data/oohay.sav");
 	}
 
 	/**

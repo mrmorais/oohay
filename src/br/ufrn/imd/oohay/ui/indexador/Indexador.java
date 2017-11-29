@@ -30,6 +30,10 @@ public class Indexador extends JPanel {
 
 		FileListPane fileListPane = new FileListPane(binder, getBackground());
 		binder.subscribeFileObserver(fileListPane);
+		// Quando o sistema iniciar pode já conter arquivos carregados
+		// por serialização. Então é importante notificar no início da
+		// aplicação também
+		binder.notifyFileObservers();
 		add(fileListPane);
 	}
 }

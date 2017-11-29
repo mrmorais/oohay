@@ -1,6 +1,7 @@
 package br.ufrn.imd.oohay.core;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * Representa um arquivo do sistema de arquivos, que foi (ou será) indexado para
@@ -9,7 +10,7 @@ import java.io.File;
  * @author mrmorais
  * @version 1
  */
-public class Arquivo {
+public class Arquivo implements Serializable {
 	/**
 	 * nome do aquivo tal como no sistema de arquivos do sistema operacional,
 	 * inclusive com a extensão do mesmo.

@@ -1,5 +1,6 @@
 package br.ufrn.imd.oohay.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * @author mrmorais
  * @version 1
  */
-public class Node {
+public class Node implements Serializable {
 	/**
 	 * Lista de filhos do nó
 	 */

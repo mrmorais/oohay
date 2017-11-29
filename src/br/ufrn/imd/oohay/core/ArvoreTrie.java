@@ -1,5 +1,6 @@
 package br.ufrn.imd.oohay.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -11,7 +12,7 @@ import java.util.Queue;
  * @author danielmarx
  * @version 1
  */
-public class ArvoreTrie {
+public class ArvoreTrie implements Serializable {
 	/**
 	 * Nó raiz da árvore, não contém palavra alguma
 	 */

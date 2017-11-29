@@ -1,5 +1,7 @@
 package br.ufrn.imd.oohay.core;
 
+import java.io.Serializable;
+
 /**
  * Representa registro de ocorrências de aparecemento de uma palavra em um
  * Arquivo.
@@ -7,7 +9,7 @@ package br.ufrn.imd.oohay.core;
  * @author mrmorais
  * @version 1
  */
-public class OcorrenciaArquivo {
+public class OcorrenciaArquivo implements Serializable {
 	/**
 	 * Arquivo em que o aparecimento é registrado
 	 */
