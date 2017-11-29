@@ -28,7 +28,7 @@ public class Sobre extends JPanel {
 		jta.setEnabled(false);
 		jta.setText("\n\n\nProjeto oohaY!\n\n" + "Desenvolvido por Maradona Morais e Daniel Marx como requisito \n"
 				+ "para avaliação da 3º unidade das disciplinas Linguagem de \nProgramação "
-				+ "II e Estrutura de Dados Básicas II.\n\n\n\n\n" + "IMD / UFRN. 2017");
+				+ "II e Estruturas de Dados Básicas II.\n\n\n\n\n" + "IMD / UFRN. 2017");
 		jta.setLineWrap(false);
 		jta.setSize(400, 100);
 		jta.setDisabledTextColor(new Color(0, 0, 0));

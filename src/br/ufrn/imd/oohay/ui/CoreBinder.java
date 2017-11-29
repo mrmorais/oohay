@@ -159,7 +159,7 @@ public class CoreBinder implements FileObservable, SearchObservable {
 
 		this.results = result;
 
-		if (results.isEmpty()) {
+		if (!results.isEmpty()) {
 			// A busca retornou resultados
 			notifySearchObservers();
 		} else {
